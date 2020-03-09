@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'chaletmedium';
+  src: url('./fonts/chaletnewyorknineteenseventy-webfont.woff2') format('woff2'),
+       url('./fonts/chaletnewyorknineteenseventy-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
 .App {
   text-align: center;
 }
@@ -35,4 +43,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.hamster_logo {
+  max-width: 100px;
+  margin-top: 4vh;
+}
+
+.logo_text {
+  font-family: 'chaletmedium';
+  color: white;
+  font-size: 100px;
+  margin-top: -4vh;
 }
