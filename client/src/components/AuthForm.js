@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Paper, withStyles, Grid, TextField, Button} from '@material-ui/core';
 import { Face, Fingerprint, MailOutline } from '@material-ui/icons';
 import { Link } from '@reach/router';
+
+import { getUser } from '../actions/users';
 // import { Face, Fingerprint } from '@material-ui/icons'
 const styles = theme => ({
     margin: {
@@ -30,8 +32,12 @@ class AuthForm extends Component {
     }
 
     render() {
+
         const { classes, signup } = this.props;
-        console.log(classes)
+        const getAlLUsers = async () =>{
+            console.log(await getUser());
+        }
+        getAlLUsers();
         return (
             <Grid 
                 container 
