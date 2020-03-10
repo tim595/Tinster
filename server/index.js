@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
+const MongoClient = require('mongodb').MongoClient;
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+const url = "mongodb://localhost:27017/";
 
 app.get("/login", function(req, res) {
     res.sendFile(__dirname + '/test.html');
