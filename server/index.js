@@ -11,21 +11,20 @@ app.get("/login", function(req, res) {
   }
 );
 
-app.post('/submit-login', function (req, res) {
+app.post('/validate-login', function (req, res) {
     var nameInput = req.body.userName;
     var passwordInput = req.body.password;
 
-    /*
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("tinster");
         var query = { userName: nameInput };
-        dbo.collection("user").findOne(query, function(err, result) {
+        dbo.collection("users").findOne(query, function(err, result) {
           if (err) throw err;
           else if (result == null) {
               res.end("Nutzer nicht vorhanden.");
           }
-          else if (result.passwort != passwordInput) {
+          else if (result.password != passwordInput) {
               res.end("Passwort falsch.");
           }
           else {
@@ -33,7 +32,6 @@ app.post('/submit-login', function (req, res) {
           }
         });
     });
-    */
 });
 
 app.get("/startseite", function(req, res) {
