@@ -1,30 +1,7 @@
-const mongoose = require('mongoose');
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const logger = require('morgan');
-const User = require('../models/user');
-
-const API_PORT = 3001;
-const app = express();
-app.use(cors());
+const express = require("express");
+// Mit der Klasse express.Router lassen sich modular einbindbare Routenhandler erstellen.
 const router = express.Router();
-
-const DB_URL = 'mongodb://localhost:27017/tinster';
-mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }); // das gleiche wie mit MongoClient
-
-const db = mongoose.connection;
-
-db.once('open', () => console.log('connected to the database'));
-
-// checks if connection with the database is successful
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-// (optional) only made for logging and
-// bodyParser, parses the request body to be a readable json format
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(logger('dev'));
+const User = require('../models/user');
 
 router.post('/signIn', (req, res) => {
     const { username, password } = req.body;
@@ -55,6 +32,4 @@ router.post('/signUp', (req, res) => {
     });
 });
 
-// append /api for our http requests
-app.use('/api', router);
-app.listen(API_PORT, () => console.log(`Server läuft auf http://localhost:${API_PORT}`));
+module.exports = router; // ? wieso hab ich noch nicht verstanden...

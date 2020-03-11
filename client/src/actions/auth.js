@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 export const signIn = async (username, password) => {
-    const res = await axios.post('http://localhost:3001/api/signIn', {
+    const res = await axios.post('http://localhost:3001/api/auth/signIn', {
       username: username,
       password: password,
     });
@@ -11,7 +11,7 @@ export const signIn = async (username, password) => {
   };
 
 export const signUp = async (email, username, password) => {
-    const res = await axios.post('http://localhost:3001/api/signUp', {
+    const res = await axios.post('http://localhost:3001/api/auth/signUp', {
         email: email,
         username: username,
         password: password,

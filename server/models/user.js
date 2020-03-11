@@ -10,5 +10,4 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-// export the new Schema so we could modify it using Node.js
 module.exports = mongoose.model("User", UserSchema);
