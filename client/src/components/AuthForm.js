@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, withStyles, Grid, TextField, Button, Snackbar, IconButton} from '@material-ui/core';
+import { Paper, withStyles, Grid, TextField, Button, Snackbar, IconButton, CircularProgress} from '@material-ui/core';
 import { Face, Fingerprint, MailOutline } from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
 import { Link, navigate } from '@reach/router';
@@ -72,7 +72,13 @@ class AuthForm extends Component {
             })
             
             if(this.state.usernameInput && this.state.passwordInput) {
+                this.setState({
+                    loading: true
+                });
                 response = await signIn(this.state.usernameInput, this.state.passwordInput);
+                this.setState({
+                    loading: false
+                });
                 if(response.success){
                     navigate('/home');
                 }else if(!response.userExists && !response.error) {
@@ -110,14 +116,19 @@ class AuthForm extends Component {
         } else { // signup
             const isEmailInputValid = this.isEmailInputValid();
             const arePasswordInputsValid = this.arePasswordInputsValid();
+            this.setState({
+                loading: true
+            });
             const isUserInputValid = await this.isUserInputValid();
-
             if(isEmailInputValid && arePasswordInputsValid && isUserInputValid){
                 response = await signUp(this.state.emailInput, this.state.usernameInput, this.state.passwordInput);
                 if(response.success){
                     navigate('/home');
                 }
-            }   
+            }
+            this.setState({
+                loading: false
+            });  
         }
     }
 
@@ -356,13 +367,16 @@ class AuthForm extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid container justify="center" style={{ marginTop: '10px' }}>
-                                    <Button 
-                                        variant="outlined" 
-                                        color="primary" 
-                                        onClick={e => this.handleSubmit(e)} 
-                                        style={{ textTransform: "none" }}>{signup?"Sign Up":"Login"}
-                                    </Button>
-                                    {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+                                    <div className="loadingWrapper">
+                                        <Button 
+                                            variant="outlined" 
+                                            color="primary" 
+                                            onClick={e => this.handleSubmit(e)} 
+                                            disabled={this.state.loading}
+                                            style={{ textTransform: "none" }}>{signup?"Sign Up":"Login"}
+                                        </Button>
+                                        {this.state.loading && <CircularProgress size={24} className="buttonProgress" />}
+                                    </div>
                                 </Grid>
 
                             </div>
