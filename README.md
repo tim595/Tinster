@@ -14,7 +14,7 @@ docker exec -it tinster bash
 ```
 mongo
 use tinster
-db.createCollection("user")
+db.createCollection("users")
 ```
 
 ## insert an element
