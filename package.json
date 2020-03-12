@@ -1,0 +1,27 @@
+{
+  "name": "Tinster",
+  "version": "1.0.0",
+  "description": "```\r docker run -d --name tinster -p 27017:27017 mongo:latest\r (docker start tinster)\r docker exec -it tinster bash\r ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently -p \"[{name}]\" -n \"Docker,Server,Client\" -c \"bold,bold,bold\" --kill-others-on-fail \"docker start tinster\" \"cd server && nodemon index.js\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tim595/Tinster.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tim595/Tinster/issues"
+  },
+  "homepage": "https://github.com/tim595/Tinster#readme",
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
