@@ -10,9 +10,9 @@ router.post('/signIn', (req, res) => {
         if (err) {
             return res.json({ success: false, error: err });
         } else if (result == null) {
-            return res.json({ success: false, error: "USER DOESN'T EXISTS!" });
+            return res.json({ success: false, userExists: false });
         } else if (result.password != password) {
-            return res.json({ success: false, error: 'WRONG PASSWORD BITCH' });
+            return res.json({ success: false,  passwordWrong: true, userExists: true});
         }
         return res.json({ success: true, user: result });
     });
@@ -31,5 +31,18 @@ router.post('/signUp', (req, res) => {
         return res.json({ success: true });
     });
 });
+
+router.post('/checkUsername', (req, res) => {
+    const { username } = req.body;
+    User.findOne( { username: username.toLowerCase() }, (err, result) => {
+        if (err) {
+            return res.json({ success: false, error: err });
+        } else if (result != null) {
+            return res.json({ success: true, userExists: true});
+        } else {
+            return res.json({success: true, userExists: false});
+        }    
+    })
+}) 
 
 module.exports = router; // ? wieso hab ich noch nicht verstanden...

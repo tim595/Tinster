@@ -19,3 +19,10 @@ export const signUp = async (email, username, password) => {
     console.log("res: ", res.data);
     return res.data;
 };
+
+export const checkUsername = async username => {
+  const res = await axios.post('http://localhost:3001/api/auth/checkUsername', {
+    username: username
+  });
+  return res.data;
+}
