@@ -1,19 +1,5 @@
 # Setup a development environment
-### Start server
-in ./tinster/server
-```
-node index.js
-```
-### Start client
-in ./tinster/client
-```
-npm start
-```
-### Start MongoDB
-Wenn MongoDB schon aufgesetzt ist:
-```
-docker start tinster
-```
+Run ``` npm start ``` in ```./tinster```
 
 # MongoDB initial aufsetzen: 
 
