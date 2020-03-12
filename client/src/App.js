@@ -2,6 +2,7 @@ import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import AuthForm from './components/AuthForm';
+import Home from './components/Home'
 import { Container } from '@material-ui/core';
 import { Router } from '@reach/router';
 
@@ -11,8 +12,8 @@ function App() {
       <Container maxWidth="sm">
         <Router>
           <AuthForm path="/" />
-          {/* <AuthForm path="/signin" /> */}
           <AuthForm signup path="/signup" />
+          <Home path="/home" />
         </Router>
      </Container>
   );

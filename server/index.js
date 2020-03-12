@@ -1,51 +1,27 @@
-const express = require("express");
+const mongoose = require('mongoose');
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const authRoutes = require('./routes/auth')
+
+
+const DB_URL = 'mongodb://localhost:27017/tinster';
+const API_PORT = 3001;
+
 const app = express();
-var bodyParser = require("body-parser");
+app.use(cors());
+
+mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }); // das gleiche wie mit MongoClient
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(logger('dev')); // nur zum debugggen
 
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
 
-app.get("/login", function(req, res) {
-    res.sendFile(__dirname + '/test.html');
-  }
-);
 
-app.post('/submit-login', function (req, res) {
-    var nameInput = req.body.userName;
-    var passwordInput = req.body.password;
+app.use('/api/auth', authRoutes);
+app.listen(API_PORT, () => console.log(`Server läuft auf http://localhost:${API_PORT}`));
 
-    /*
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("tinster");
-        var query = { userName: nameInput };
-        dbo.collection("user").findOne(query, function(err, result) {
-          if (err) throw err;
-          else if (result == null) {
-              res.end("Nutzer nicht vorhanden.");
-          }
-          else if (result.passwort != passwordInput) {
-              res.end("Passwort falsch.");
-          }
-          else {
-              res.redirect('/startseite');
-          }
-        });
-    });
-    */
-});
-
-app.get("/startseite", function(req, res) {
-    res.sendFile(__dirname + '/startseite.html');
-})
-
-/*
-app.get("/startseite", function(req, res) {
-    res.send("placeholder");
-})
-*/
-
-app.listen(8080, function() {
-  console.log("Server gestartet");
-});
+// die Login-Logik ist jetzt in routes/auth.js :)
