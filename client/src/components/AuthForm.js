@@ -203,6 +203,8 @@ class AuthForm extends Component {
             } else if (response.userExists) {
                 return false;
             }
+        }else {
+            this.setState({ snackbarOpen: true });
         }
         // eventuell error ausgeben
     }
