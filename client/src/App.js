@@ -1,6 +1,6 @@
 import React from 'react';
 // import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
 import AuthForm from './components/AuthForm';
 import Home from './components/Home'
 import { Container } from '@material-ui/core';

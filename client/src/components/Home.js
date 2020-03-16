@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
+import SwipeCard from './SwipeCard';
 
 class Home extends Component {
     render() {
@@ -7,17 +8,13 @@ class Home extends Component {
             <Grid 
                 container 
                 spacing={0} 
-                direction="column"
-                // alignItems="center"
+                alignItems="center"
                 justify="center"
-                style={{ minHeight: '80vh' }}
+                style={{ height: '100vh' }}
             >
-                <Grid item align="center">
-                    <img alt="hamster_logo" className="hamster_logo" src="https://cdn2.iconfinder.com/data/icons/animals-nature-2/50/1F439-hamster-512.png"/>
-                </Grid>
-                <Grid item align="center">
-                    <p className="logo_text">Logged in ❤</p>
-                </Grid>
+                {/* <Grid item align="center"> */}
+                    <SwipeCard />
+                {/* </Grid> */}
             </Grid>
 
         );

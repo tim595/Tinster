@@ -1,6 +1,6 @@
 @font-face {
-  src: url('./fonts/chaletnewyorknineteenseventy-webfont.woff2') format('woff2'),
-  url('./fonts/chaletnewyorknineteenseventy-webfont.woff') format('woff');
+  src: url('../fonts/chaletnewyorknineteenseventy-webfont.woff2') format('woff2'),
+  url('../fonts/chaletnewyorknineteenseventy-webfont.woff') format('woff');
   font-family: 'chaletmedium';
   font-weight: normal;
   font-style: normal;
@@ -48,3 +48,32 @@
   align-items: center;
   position: relative;
 }
+
+/* SwipeCard */
+
+.swipePaper{
+  display: flex;
+  height: 80vh;
+  width: 100vh;
+  justify-content: center;
+}
+.swipeContainer {
+  height: 90%;
+  width: 80%;
+  text-align: center;
+}
+
+.swipeContainer img {
+  width: 100%;
+}
+/* .swipeContainer img{
+  vertical-align: middle;
+}
+
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+} */
+
+/*___________*/
