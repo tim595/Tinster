@@ -5,7 +5,6 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HelpIcon from '@material-ui/icons/Help';
 
-
 class SwipeCard extends Component {
     render() {
         return(
@@ -14,12 +13,12 @@ class SwipeCard extends Component {
                     <Grid className="swipeContainer">
                         <img src="https://source.unsplash.com/400x600/?hamster" alt="hamster_image"></img>
                     </Grid>
-                    <Grid item>
+                    <Grid item style={{  width:'80%', marginTop:'5px'}}>
                         <p className="nameTag">Freddy, 14 Month</p>
                     </Grid>
                     <Grid item className="swipeButtons">
                         <CheckCircleIcon className="cardIcons" style={{color:'lightgreen'}} />
-                        <CancelIcon className="cardIcons" style={{color:'orange'}}/>
+                        <CancelIcon className="cardIcons" style={{color:'orangered'}}/>
                         <HelpIcon className="cardIcons" style={{color:'lightblue'}} />
                     </Grid>
                 </Grid>
