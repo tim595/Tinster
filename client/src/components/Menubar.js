@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -8,31 +6,18 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Box from '@material-ui/core/Box';
 import SettingsIcon from '@material-ui/icons/Settings';
-
-
-const styles = theme => ({
-    root: {
-        flexGrow: 1
-    },
-    accountIcon: {
-        align: 'right'
-    }
-  });
+import { navigate } from '@reach/router';
 
 
 class Menubar extends Component {
-    
-    
-
     render() {
-        const { classes } = this.props;  
         return (
             <AppBar /* position="static" //eventuell bei mobile nutzen */ title="Tinster" style={{ background: 'lightblue' }}>
                 <Toolbar>
                     <div style={{ width: '100%' }}>
                         <Box display="flex">    
                             <Box display="flex" justifyContent="flex-start" style={{ width: '33.33%'}}>
-                                <IconButton color="inherit" aria-label="menu">
+                                <IconButton color="inherit" aria-label="menu" onClick={() => navigate("/settings")}>
                                     <SettingsIcon />
                                 </IconButton>
                             </Box>
@@ -42,7 +27,7 @@ class Menubar extends Component {
                                 </Typography>
                             </Box>
                             <Box display="flex" justifyContent="flex-end" style={{ width: '33.33%'}}>
-                                <IconButton color="inherit" aria-label="account of current user" aria-controls="menu-appbar">
+                                <IconButton color="inherit" aria-label="account of current user" aria-controls="menu-appbar" onClick={() => navigate("/profile")}>
                                     <AccountCircle />
                                 </IconButton>
                             </Box>
@@ -54,4 +39,4 @@ class Menubar extends Component {
     }
   }
 
-  export default withStyles(styles)(Menubar);
+  export default Menubar;
