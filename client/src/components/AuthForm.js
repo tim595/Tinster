@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Paper, withStyles, Grid, TextField, Button, Snackbar, IconButton, CircularProgress} from '@material-ui/core';
+import { Paper, withStyles, Grid, TextField, Button, Snackbar, IconButton, CircularProgress, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox} from '@material-ui/core';
 import { Face, Fingerprint, MailOutline } from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
+import WcIcon from '@material-ui/icons/Wc';
 import { Link, navigate } from '@reach/router';
 import { signIn, signUp, checkUsername } from '../actions/auth'
 
@@ -39,6 +40,9 @@ class AuthForm extends Component {
             confirmPwShowErrText: false,
             confirmPwErrText: "",
 
+            CheckboxFemale: false,
+            CheckboxMale: false,
+
             snackbarOpen: false,
 
             loading: false
@@ -50,12 +54,24 @@ class AuthForm extends Component {
         })
     }
 
+    handleCheckbox = e => {
+        this.setState({
+            [e.target.name] : e.target.checked
+        })
+    }
+
     handleSnackClose = (event, reason) => {
         if (reason === 'clickaway') {
           return;
         }
         this.setState({ snackbarOpen: false });
       };
+
+    handleGenderRadio = event => {
+        this.setState({
+            genderRadio: event.target.value
+        })
+    };
 
     handleSubmit = async e => {
         e.preventDefault();
@@ -333,23 +349,56 @@ class AuthForm extends Component {
                                     </Grid>
                                 </Grid>
                                 {signup && (
-                                    <Grid container spacing={2} alignItems="flex-end">
-                                        <Grid item>
-                                            <Fingerprint />
+                                    <>
+                                        <Grid container spacing={2} alignItems="flex-end">
+                                            <Grid item>
+                                                <Fingerprint />
+                                            </Grid>
+                                            <Grid item xs>
+                                                <TextField 
+                                                error={this.state.confirmPwErrAttr?true:false}
+                                                helperText={this.state.confirmPwShowErrText?this.state.confirmPwErrText:false} 
+                                                id="passwort_confirm" 
+                                                label="Confirm passwort" 
+                                                type="password" 
+                                                fullWidth required  
+                                                onChange={e => this.handleChange(e)} 
+                                                value={this.state.input} 
+                                                name="confirmPWInput"/>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item xs>
-                                            <TextField 
-                                            error={this.state.confirmPwErrAttr?true:false}
-                                            helperText={this.state.confirmPwShowErrText?this.state.confirmPwErrText:false} 
-                                            id="passwort_confirm" 
-                                            label="Confirm passwort" 
-                                            type="password" 
-                                            fullWidth required  
-                                            onChange={e => this.handleChange(e)} 
-                                            value={this.state.input} 
-                                            name="confirmPWInput"/>
+                                        <Grid container alignItems="center" justify="space-between">
+                                            <Grid item>
+                                                <WcIcon />
+                                            </Grid>
+                                            <Grid item container style={{ width:'92%', marginTop:'20px' }}  alignItems="center" justify="space-between">
+                                                <Paper variant="outlined" style={{ padding: '10px', marginBottom: '5px'}}>
+                                                    <Grid item>
+                                                        <FormControl component="fieldset">
+                                                        <FormLabel component="legend">Gender</FormLabel>
+                                                            <RadioGroup row aria-label="gender" name="gender" value={this.state.genderRadio} onChange={this.handleGenderRadio}>
+                                                                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                                                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                                            </RadioGroup>
+                                                        </FormControl>
+                                                    </Grid>
+                                                </Paper>
+                                               <Paper variant="outlined" style={{ padding: '10px', marginBottom: '5px'}}>
+                                                    <Grid item>
+                                                        <FormLabel component="legend">Preference</FormLabel>
+                                                        <FormControlLabel
+                                                            control={<Checkbox checked={this.state.CheckboxFemale} onChange={this.handleCheckbox} name="CheckboxFemale" />}
+                                                            label="Female"
+                                                        />
+                                                        <FormControlLabel
+                                                            control={<Checkbox checked={this.state.CheckboxMale} onChange={this.handleCheckbox} name="CheckboxMale" />}
+                                                            label="Male"
+                                                        />
+                                                    </Grid>
+                                               </Paper>
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
+                                    </>
                                 )}
                                 <Grid container alignItems="center" justify="space-between">
                                     <Grid item>
