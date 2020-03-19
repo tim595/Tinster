@@ -50,9 +50,6 @@ class AuthForm extends Component {
 
             selectedPreference: [],
 
-            CheckboxFemale: false,
-            CheckboxMale: false,
-
             snackbarOpen: false,
 
             loading: false
@@ -291,7 +288,7 @@ class AuthForm extends Component {
             checkboxErrAttr: false,
             checkboxShowErrText: false,
         })
-        if (!this.state.CheckboxMale && !this.state.CheckboxFemale) {
+        if (this.state.selectedPreference.length === 0) {
             this.setState({
                 checkboxErrAttr: true,
                 checkboxShowErrText: true,
