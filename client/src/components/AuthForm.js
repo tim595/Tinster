@@ -48,6 +48,8 @@ class AuthForm extends Component {
 
             genderRadio: "",
 
+            selectedPreference: [],
+
             CheckboxFemale: false,
             CheckboxMale: false,
 
@@ -63,9 +65,16 @@ class AuthForm extends Component {
     }
 
     handleCheckbox = e => {
-        this.setState({
-            [e.target.name] : e.target.checked
-        })
+        if ( e.target.type === "checkbox") {
+            var prefArr = [...this.state.selectedPreference];
+            var index = prefArr.indexOf(e.target.name);
+            if (index !== -1) {
+              prefArr.splice(index, 1);
+              this.setState({ selectedPreference: prefArr });
+            } else {
+              this.setState({ selectedPreference: [...this.state.selectedPreference, e.target.name] });
+            }
+        }
     }
 
     handleSnackClose = (event, reason) => {
@@ -151,7 +160,8 @@ class AuthForm extends Component {
                 isUserInputValid && 
                 areCheckboxesChecked &&
                 isRadioButtonChecked ){
-                response = await signUp(this.state.emailInput, this.state.usernameInput, this.state.passwordInput);
+                
+                response = await signUp(this.state.emailInput, this.state.usernameInput, this.state.passwordInput, this.state.genderRadio, this.state.selectedPreference );
                 if(response.success){
                     navigate('/home');
                 }
@@ -433,14 +443,14 @@ class AuthForm extends Component {
                                                         style={{display:'block'}}>
                                                             <FormLabel component="legend">Preference *</FormLabel>
                                                             <FormControlLabel
-                                                                control={<Checkbox checked={this.state.CheckboxFemale} onChange={this.handleCheckbox} name="CheckboxFemale" />}
+                                                                control={<Checkbox onChange={this.handleCheckbox} name="female" />}
                                                                 label="Female"
                                                             />
                                                             <FormControlLabel
-                                                                control={<Checkbox checked={this.state.CheckboxMale} onChange={this.handleCheckbox} name="CheckboxMale" />}
+                                                                control={<Checkbox onChange={this.handleCheckbox} name="male" />}
                                                                 label="Male"
                                                             />
-                                                            <FormHelperText hidden={this.state.checkboxShowErrText?false:true} error>At least one checkbox must be checked</FormHelperText>
+                                                            <FormHelperText hidden={this.state.checkboxShowErrText?false:true} error>Select at least one checkbox</FormHelperText>
                                                         </FormControl>
                                                     </Grid>
                                                </Paper>
