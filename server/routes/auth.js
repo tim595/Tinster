@@ -20,12 +20,14 @@ router.post('/signIn', (req, res) => {
 
 router.post('/signUp', (req, res) => {
     let newUser = new User();
-    const { username, password, email } = req.body;
+    const { username, password, email, gender, preference } = req.body;
 
     newUser.username = username.toLowerCase();
     newUser.password = password;
     newUser.email = email;
-
+    newUser.gender = gender;
+    newUser.preference = preference;
+    
     newUser.save((err) => {
         if (err) return res.json({ success: false, error: err });
         return res.json({ success: true });
