@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, withStyles, Grid, TextField, Button, Snackbar, IconButton, CircularProgress, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox} from '@material-ui/core';
+import { Paper, withStyles, Grid, TextField, Button, Snackbar, IconButton, CircularProgress, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, FormHelperText} from '@material-ui/core';
 import { Face, Fingerprint, MailOutline } from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
 import WcIcon from '@material-ui/icons/Wc';
@@ -40,6 +40,14 @@ class AuthForm extends Component {
             confirmPwShowErrText: false,
             confirmPwErrText: "",
 
+            checkboxErrAttr: false,
+            checkboxShowErrText: false,
+
+            radioErrAttr: false,
+            radioShowErrText: false,
+
+            genderRadio: "",
+
             CheckboxFemale: false,
             CheckboxMale: false,
 
@@ -67,9 +75,9 @@ class AuthForm extends Component {
         this.setState({ snackbarOpen: false });
       };
 
-    handleGenderRadio = event => {
+    handleGenderRadio = e => {
         this.setState({
-            genderRadio: event.target.value
+            genderRadio: e.target.value
         })
     };
 
@@ -132,11 +140,17 @@ class AuthForm extends Component {
         } else { // signup
             const isEmailInputValid = this.isEmailInputValid();
             const arePasswordInputsValid = this.arePasswordInputsValid();
+            const areCheckboxesChecked = this.areCheckboxesChecked();
+            const isRadioButtonChecked = this.isRadioButtonChecked();
             this.setState({
                 loading: true
             });
             const isUserInputValid = await this.isUserInputValid();
-            if(isEmailInputValid && arePasswordInputsValid && isUserInputValid){
+            if( isEmailInputValid && 
+                arePasswordInputsValid && 
+                isUserInputValid && 
+                areCheckboxesChecked &&
+                isRadioButtonChecked ){
                 response = await signUp(this.state.emailInput, this.state.usernameInput, this.state.passwordInput);
                 if(response.success){
                     navigate('/home');
@@ -262,11 +276,37 @@ class AuthForm extends Component {
         } else return true;
     }
 
-    showDatabaseError = () => {}
+    areCheckboxesChecked = () => {
+        this.setState({
+            checkboxErrAttr: false,
+            checkboxShowErrText: false,
+        })
+        if (!this.state.CheckboxMale && !this.state.CheckboxFemale) {
+            this.setState({
+                checkboxErrAttr: true,
+                checkboxShowErrText: true,
+            })
+            return false;
 
+        } else return true;
 
-    
-    
+    }
+
+    isRadioButtonChecked = () => {
+        this.setState({
+            radioErrAttr: false,
+            radioShowErrText: false,
+        })
+        if (this.state.genderRadio === "") {
+            this.setState({
+                radioErrAttr: true,
+                radioShowErrText: true,
+            })
+            return false;
+
+        } else return true;
+    }
+
     render() {
         //TODO: Variablen eventuell außerhalb von render() deklarieren
         const { classes, signup } = this.props;
@@ -374,26 +414,34 @@ class AuthForm extends Component {
                                             <Grid item container style={{ width:'92%', marginTop:'20px' }}  alignItems="center" justify="space-between">
                                                 <Paper variant="outlined" style={{ padding: '10px', marginBottom: '5px'}}>
                                                     <Grid item>
-                                                        <FormControl component="fieldset">
-                                                        <FormLabel component="legend">Gender</FormLabel>
+                                                        <FormControl
+                                                        error={this.state.radioErrAttr?true:false} 
+                                                        component="fieldset">
+                                                        <FormLabel component="legend">Gender *</FormLabel>
                                                             <RadioGroup row aria-label="gender" name="gender" value={this.state.genderRadio} onChange={this.handleGenderRadio}>
                                                                 <FormControlLabel value="female" control={<Radio />} label="Female" />
                                                                 <FormControlLabel value="male" control={<Radio />} label="Male" />
                                                             </RadioGroup>
+                                                            <FormHelperText hidden={this.state.radioShowErrText?false:true} error>A gender must be selected</FormHelperText>
                                                         </FormControl>
                                                     </Grid>
                                                 </Paper>
                                                <Paper variant="outlined" style={{ padding: '10px', marginBottom: '5px'}}>
                                                     <Grid item>
-                                                        <FormLabel component="legend">Preference</FormLabel>
-                                                        <FormControlLabel
-                                                            control={<Checkbox checked={this.state.CheckboxFemale} onChange={this.handleCheckbox} name="CheckboxFemale" />}
-                                                            label="Female"
-                                                        />
-                                                        <FormControlLabel
-                                                            control={<Checkbox checked={this.state.CheckboxMale} onChange={this.handleCheckbox} name="CheckboxMale" />}
-                                                            label="Male"
-                                                        />
+                                                        <FormControl 
+                                                        error={this.state.checkboxErrAttr?true:false}
+                                                        style={{display:'block'}}>
+                                                            <FormLabel component="legend">Preference *</FormLabel>
+                                                            <FormControlLabel
+                                                                control={<Checkbox checked={this.state.CheckboxFemale} onChange={this.handleCheckbox} name="CheckboxFemale" />}
+                                                                label="Female"
+                                                            />
+                                                            <FormControlLabel
+                                                                control={<Checkbox checked={this.state.CheckboxMale} onChange={this.handleCheckbox} name="CheckboxMale" />}
+                                                                label="Male"
+                                                            />
+                                                            <FormHelperText hidden={this.state.checkboxShowErrText?false:true} error>At least one checkbox must be checked</FormHelperText>
+                                                        </FormControl>
                                                     </Grid>
                                                </Paper>
                                             </Grid>
