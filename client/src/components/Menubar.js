@@ -22,7 +22,7 @@ class Menubar extends Component {
                                 </IconButton>
                             </Box>
                             <Box display="flex" justifyContent="center" style={{ width: '33.33%'}}>
-                                <Typography centered variant="h5" style={{fontFamily: 'chaletmedium', fontSize: '40px'}}>
+                                <Typography variant="h5" style={{fontFamily: 'chaletmedium', fontSize: '40px'}}>
                                     tinster
                                 </Typography>
                             </Box>
