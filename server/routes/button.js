@@ -12,10 +12,8 @@ router.post('/like', (req, res) => {
         }
         else {
             let doc = result;
-            console.log(doc.likes);
             doc.likes.push(swipeID);
             doc.save();
-            console.log(doc.likes);
 
             return res.json({ success: true });
         }
