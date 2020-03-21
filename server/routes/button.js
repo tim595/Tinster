@@ -7,7 +7,7 @@ router.post('/like', (req, res) => {
     const { userName, swipeID } = req.body;
 
     User.findOne({username: userName}, (err, result) => {
-        if(err) {
+        if(err || result === null) {
             return res.json({ success: false, error: err });
         }
         else {
@@ -26,7 +26,7 @@ router.post('/dislike', (req, res) => {
     const { userName, swipeID } = req.body;
 
     User.findOne({username: userName}, (err, result) => {
-        if(err) {
+        if(err || result === null) {
             return res.json({ success: false, error: err });
         } else {
             let doc = result;

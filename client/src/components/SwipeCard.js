@@ -23,7 +23,7 @@ class SwipeCard extends Component {
         this.setState({ snackbarOpen: false });
       };
 
-    async addLike() {
+    addLike = async() => {
         let userName = 'freddy'; // eigene id/username aus der aktuellen session entnehmen
         let swipeID = uuidv4(); // soll später die id/username des angezeigten users zurückgeben
 
@@ -35,7 +35,7 @@ class SwipeCard extends Component {
         }
     };
 
-    async addDislike() {
+    addDislike = async() => {
         let userName = 'freddy';
         let swipeID = uuidv4();
 
