@@ -17,14 +17,14 @@ class Profile extends Component {
                 style={{ height: '100vh' }}
             >
             <Paper className="swipePaper">
-                <Grid container style={{margin: 0}} spacing={3}>
-                    <Grid style={{height: 'fit-content'}} item xs={12}>
+                <Grid container style={{margin: '10px', alignContent: 'flex-start'}} spacing={2}>
+                    <Grid style={{height: 'fit-content', marginBottom: '1em'}} item xs={12}>
                         <Avatar className="profileAvatar" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"/>
                         <Typography style={{textAlign: 'center', marginTop:'10px'}} variant="h3">
                             <b>Freddy</b>, 14
                         </Typography>
                     </Grid>
-                    <Grid item style={{ marginLeft: '1em', marginTop: '-4em'}} xs={6}>
+                    <Grid item md={6} sm={12}>
                         <Typography variant="h6">
                             <CakeIcon className="profileIcon"/>14 Month
                         </Typography>
@@ -35,11 +35,11 @@ class Profile extends Component {
                             <FavoriteIcon className="profileIcon"/>Female
                         </Typography>
                     </Grid>
-                    <Grid item xs={5} style={{marginTop: '-4em'}}>
+                    <Grid item md={6} sm={12}>
                         <Typography variant="h6">
                             <DescriptionIcon className="profileIcon"/><b>Description</b>
-                            <p style={{fontSize: '18px', textAlign: 'justify'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </Typography>
+                        <Typography style={{fontSize: '16px', textAlign: 'justify'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
                         </Typography>
                     </Grid>
                     
