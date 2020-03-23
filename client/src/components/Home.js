@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
-import { Grid } from '@material-ui/core';
+// import { Grid } from '@material-ui/core';
 import SwipeCard from './SwipeCard';
 import Menubar from './Menubar';
+import ProfileCard from './ProfileCard';
+
 
 class Home extends Component {
     render() {
         return(
-            <Grid 
-                container 
-                spacing={0} 
-                alignItems="center"
-                justify="center"
-                style={{ height: '100vh' }}
-            >
-                {/* <Grid item align="center"> */}
-                    <Menubar />
+            <div className="homeDiv">
+                <Menubar />
+                <div style={{visibility: 'hidden', flex:1 }}>
+                </div>
+                <div style={{ flex:1, margin: '5em' }}>
                     <SwipeCard />
-                {/* </Grid> */}
-            </Grid>
-
-        );
+                </div>
+                <div style={{ flex:1, margin: '5em' }}>
+                    <ProfileCard />
+                </div>
+            </div>
+        )
     }
 }
 
