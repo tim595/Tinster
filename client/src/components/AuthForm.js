@@ -323,7 +323,7 @@ class AuthForm extends Component {
                 container 
                 spacing={0} 
                 direction="column"
-                // alignItems="center"
+                alignItems="center"
                 justify="center"
                 style={{ minHeight: '80vh' }}
             >
@@ -333,7 +333,7 @@ class AuthForm extends Component {
                 <Grid item align="center">
                     <p className="logo_text">tinster</p>
                 </Grid>
-                <Grid item>
+                <Grid item style={{ maxWidth: '500px', width: '100%'}}>
                     <Paper className={classes.padding}>
                         <form noValidate>
                             <div className={classes.margin}>
