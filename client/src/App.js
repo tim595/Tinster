@@ -11,7 +11,7 @@ import { Router } from '@reach/router';
 
 function App() {
   return (
-      <Container maxWidth="sm">
+      <Container maxWidth="xl">
         <Router>
           <AuthForm path="/" />
           <AuthForm signup path="/signup" />
