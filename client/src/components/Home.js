@@ -10,12 +10,12 @@ class Home extends Component {
         return(
             <div className="homeDiv">
                 <Menubar />
-                <div style={{visibility: 'hidden', flex:1 }}>
+                <div classNae="hiddenDiv" style={{visibility: 'hidden', flex:1 }}>
                 </div>
-                <div style={{ flex:1, margin: '5em' }}>
+                <div className="swipeCardDiv">
                     <SwipeCard />
                 </div>
-                <div style={{ flex:1, margin: '5em' }}>
+                <div style={{ flex:1, margin: '5em 0 5em 1em' }}>
                     <ProfileCard />
                 </div>
             </div>

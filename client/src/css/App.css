@@ -114,3 +114,17 @@
   flex-grow: 1;
   position: relative;
 }
+
+@media only screen and (max-width: 1010px) {
+  .homeDiv {
+    flex-flow: column nowrap;
+    height: inherit;
+  }
+  .swipeCardDiv {
+    margin-top: 5em;
+  }
+
+  .hiddenDiv {
+    display: none;
+  }
+}
