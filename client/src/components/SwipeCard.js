@@ -19,7 +19,7 @@ class SwipeCard extends Component {
                     <Grid item className="swipeButtons">
                         <CheckCircleIcon className="cardIcons" style={{color:'lightgreen'}} />
                         <CancelIcon className="cardIcons" style={{color:'orangered'}}/>
-                        <HelpIcon className="cardIcons" style={{color:'lightblue'}} />
+                        <HelpIcon className="cardIcons" onClick={this.props.triggerProfile} style={{color:'lightblue'}} />
                     </Grid>
                 </Grid>
             </Paper>

@@ -6,17 +6,26 @@ import ProfileCard from './ProfileCard';
 
 
 class Home extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            showProfile: false
+        }
+    }
+    triggerProfile = () => {
+        this.setState({showProfile: !this.state.showProfile})
+    }
     render() {
         return(
             <div className="homeDiv">
                 <Menubar />
-                <div classNae="hiddenDiv" style={{visibility: 'hidden', flex:1 }}>
+                <div className="hiddenDiv" style={{visibility: 'hidden', flex:1 }}>
                 </div>
                 <div className="swipeCardDiv">
-                    <SwipeCard />
+                    <SwipeCard triggerProfile={this.triggerProfile}/>
                 </div>
                 <div style={{ flex:1, margin: '5em 0 5em 1em' }}>
-                    <ProfileCard />
+                    <ProfileCard showProfile={this.state.showProfile} />
                 </div>
             </div>
         )

@@ -19,7 +19,7 @@ class ProfilePage extends Component {
             style={{ minHeight: '100vh' }}
             >
                 <Menubar />
-                <ProfileCard item/>
+                <ProfileCard item showProfile={ true }/>
             </Grid>
             
         );
