@@ -61,9 +61,9 @@ class SwipeCard extends Component {
                         <p className="nameTag">Freddy, 14 Month</p>
                     </Grid>
                     <Grid item className="swipeButtons">
-                        <CheckCircleIcon className="cardIcons" style={{color:'lightgreen'}} onClick={this.addLike} />
-                        <CancelIcon className="cardIcons" style={{color:'orangered'}} onClick={this.addDislike}/>
-                        <HelpIcon className="cardIcons" style={{color:'lightblue'}} />
+                            <CheckCircleIcon className="cardIcons" style={{color:'lightgreen'}} onClick={this.addLike} />
+                            <CancelIcon className="cardIcons" style={{color:'orangered'}} onClick={this.addDislike}/>
+                        <HelpIcon className="cardIcons" onClick={this.props.triggerProfile} style={{color:'lightblue'}} />
                     </Grid>
                     <Snackbar
                     anchorOrigin={{

@@ -4,20 +4,20 @@ import './css/App.css';
 import AuthForm from './components/AuthForm';
 import Home from './components/Home'
 import Settings from './components/Settings'
-import Profile from './components/Profile'
+import ProfilePage from './components/ProfilePage'
 import { Container } from '@material-ui/core';
 import { Router } from '@reach/router';
 
 
 function App() {
   return (
-      <Container maxWidth="sm">
+      <Container maxWidth="xl">
         <Router>
           <AuthForm path="/" />
           <AuthForm signup path="/signup" />
           <Home path="/home" />
           <Settings path="/settings" />
-          <Profile path="/profile" />
+          <ProfilePage path="/profile" />
         </Router>
      </Container>
   );
