@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const authRoutes = require('./routes/auth')
 const btnFunctions = require('./routes/button');
+const dataMngmnt = require('./routes/changeSettings');
 
 
 const DB_URL = 'mongodb+srv://tinster_admin:PcNXWk3yd1DGdcCm@cluster-wrz7u.mongodb.net/tinster?retryWrites=true&w=majority';
@@ -22,4 +23,5 @@ app.use(logger('dev'));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/button', btnFunctions);
+app.use('/api/changeSettings', dataMngmnt);
 app.listen(API_PORT, () => console.log(`Server läuft auf http://localhost:${API_PORT}`));
