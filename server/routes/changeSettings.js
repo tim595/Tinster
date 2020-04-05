@@ -17,7 +17,7 @@ router.post('/receiveData', (req, res) => {
 })
 
 router.post('/updateData', (req, res) => {
-    const { userName, email, number } = req.body;
+    const { userName, email, number, description } = req.body;
 
     User.findOne({username: userName}, (err, result) => {
         if(err || result === null) {
@@ -27,6 +27,7 @@ router.post('/updateData', (req, res) => {
             let doc = result;
             doc.email = email;
             doc.number = number;
+            doc.description = description;
             doc.save();
 
             return res.json({ success: true });
