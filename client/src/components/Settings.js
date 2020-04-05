@@ -21,13 +21,15 @@ class Settings extends Component {
         this.state = {
             emailInput: "",
             snackbarOpen: false,
-            setValues : true
+            setValues : true,
+
+            emailErrAttr: false,
+            emailShowErrText: false,
+            emailErrText: "",
         }
     }
 
-    
     handleChange = e => {
-        console.log(e.target.name);
         this.setState({
             [e.target.name] : e.target.value 
         })
@@ -35,15 +37,48 @@ class Settings extends Component {
 
     handleSubmit = async e => {
         e.preventDefault();
+        const isEmailInputValid = this.isEmailInputValid();
         
         let userName = 'freddy';
-        let response = await updateData(userName, this.state.emailInput);
-        if(response.success) {
-            console.log("noice");
+        if(isEmailInputValid) {
+            let response = await updateData(userName, this.state.emailInput);
+            if(response.success) {
+                console.log("noice");
+            }
+            else {
+                this.setState({ snackbarOpen: true })
+            }
         }
-        else {
-            this.setState({ snackbarOpen: true })
-        }
+    }
+
+    isEmailInputValid = () => {
+        this.setState({
+            emailErrAttr: false,
+            emailShowErrText: false,
+            emailErrText: ""
+        })
+        if (this.state.emailInput === "") {
+            this.setState({
+                emailErrAttr: true,
+                emailShowErrText: true,
+                emailErrText: "Email must not be empty"
+            })
+            return false;
+
+        } else if (!this.isEmailValid(this.state.emailInput)) {
+            this.setState({
+                emailErrAttr: true,
+                emailShowErrText: true,
+                emailErrText: "Email is invalid"
+            })
+            return false;
+
+        } else return true;
+    }
+
+    isEmailValid = email => {
+        let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return email.match(emailRegex)!=null?true:false;
     }
 
     getCurrentData = async() => {
@@ -89,6 +124,8 @@ class Settings extends Component {
                                         </Grid>
                                         <Grid item xs>
                                             <TextField 
+                                                error={this.state.emailErrAttr?true:false}
+                                                helperText={this.state.emailShowErrText?this.state.emailErrText:false}
                                                 id="email" 
                                                 label="E-Mail"
                                                 type="email" 
