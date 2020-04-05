@@ -4,6 +4,7 @@ import Menubar from './Menubar';
 import CloseIcon from '@material-ui/icons/Close';
 import { Paper, withStyles, Button, CircularProgress, IconButton, Snackbar, TextField } from '@material-ui/core';
 import { MailOutline } from '@material-ui/icons';
+import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import { receiveData, updateData } from '../actions/changeSettings';
 
 const styles = theme => ({
@@ -20,6 +21,7 @@ class Settings extends Component {
         super(props);
         this.state = {
             emailInput: "",
+            numberInput: "",
             snackbarOpen: false,
             setValues : true,
 
@@ -38,10 +40,13 @@ class Settings extends Component {
     handleSubmit = async e => {
         e.preventDefault();
         const isEmailInputValid = this.isEmailInputValid();
+        const isNumberInputValid = this.isNumberInputValid();
+
+        console.log(isNumberInputValid);
         
         let userName = 'freddy';
-        if(isEmailInputValid) {
-            let response = await updateData(userName, this.state.emailInput);
+        if(isEmailInputValid && isNumberInputValid) {
+            let response = await updateData(userName, this.state.emailInput, this.state.numberInput);
             if(response.success) {
                 console.log("noice");
             }
@@ -81,14 +86,19 @@ class Settings extends Component {
         return email.match(emailRegex)!=null?true:false;
     }
 
+    isNumberInputValid = () => {
+        let numberRegex = /\d*/;
+        return this.state.numberInput.match(numberRegex)!=null?true:false;
+    }
+
     getCurrentData = async() => {
         let userName = 'freddy'; //später auf aktuellen User ändern
         let response = await receiveData(userName);
 
         if(response.success) {
             this.setState({
-                emailInput: response.res.email
-                
+                emailInput: response.res.email,
+                numberInput: response.res.number
             })
         } else {
             this.setState({ snackbarOpen: true});
@@ -137,6 +147,26 @@ class Settings extends Component {
                                                 name="emailInput"/>
                                         </Grid>
                                     </Grid>
+
+                                    <Grid container spacing={2} alignItems="flex-end">
+                                        <Grid item>
+                                            <PhoneAndroidIcon />
+                                        </Grid>
+                                        <Grid item xs>
+                                            <TextField 
+                                                error={this.state.emailErrAttr?true:false}
+                                                helperText={this.state.emailShowErrText?this.state.emailErrText:false}
+                                                id="number" 
+                                                label="Phone number"
+                                                type="number"
+                                                fullWidth 
+                                                autoFocus  
+                                                onChange={e => this.handleChange(e)} 
+                                                value={this.state.numberInput}
+                                                name="numberInput"/>
+                                        </Grid>
+                                    </Grid>
+
                                     <Grid container justify="center" style={{ marginTop: '10px' }}>
                                     <div className="loadingWrapper">
                                         <Button 
