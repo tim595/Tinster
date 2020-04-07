@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import Menubar from './Menubar';
 import CloseIcon from '@material-ui/icons/Close';
-import { Paper, withStyles, Button, CircularProgress, IconButton, Snackbar, TextField } from '@material-ui/core';
+import { Paper, withStyles, Button, CircularProgress, IconButton, Snackbar, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormHelperText } from '@material-ui/core';
 import { MailOutline } from '@material-ui/icons';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import MessageIcon from '@material-ui/icons/Message';
+import HomeIcon from '@material-ui/icons/Home';
+import WcIcon from '@material-ui/icons/Wc';
 import { receiveData, updateData } from '../actions/changeSettings';
 
 const styles = theme => ({
@@ -24,6 +26,7 @@ class Settings extends Component {
             emailInput: "",
             numberInput: "",
             descriptionInput: "",
+            locationInput: "",
             snackbarOpen: false,
             setValues : true,
 
@@ -37,7 +40,19 @@ class Settings extends Component {
 
             descriptionErrAttr: false,
             descriptionShowErrText: false,
-            descriptionErrText: ""
+            descriptionErrText: "",
+
+            locationErrAttr: false,
+            locationShowErrText: false,
+            locationErrText: "",
+
+            checkboxErrAttr: false,
+            checkboxShowErrText: false,
+
+            male: false,
+            female: false,
+
+            selectedPreference: []
         }
     }
 
@@ -47,17 +62,30 @@ class Settings extends Component {
         })
     }
 
+    handleCheckbox = e => {
+        if ( e.target.type === "checkbox") {
+            var prefArr = [...this.state.selectedPreference];
+            var index = prefArr.indexOf(e.target.name);
+            if (index !== -1) {
+              prefArr.splice(index, 1);
+              this.setState({ selectedPreference: prefArr });
+            } else {
+              this.setState({ selectedPreference: [...this.state.selectedPreference, e.target.name] });
+            }
+        }
+    }
+
     handleSubmit = async e => {
         e.preventDefault();
         const isEmailInputValid = this.isEmailInputValid();
         const isNumberInputValid = this.isNumberInputValid();
         const isDescriptionInputValid = this.isDescriptionInputValid();
+        const isLocationValid = this.isLocationValid();
 
-        console.log(isNumberInputValid);
         
         let userName = 'freddy';
-        if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid) {
-            let response = await updateData(userName, this.state.emailInput, this.state.numberInput, this.state.descriptionInput);
+        if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid && isLocationValid) {
+            let response = await updateData(userName, this.state.emailInput, this.state.numberInput, this.state.descriptionInput, this.state.locationInput);
             if(response.success) {
                 console.log("noice");
             }
@@ -122,8 +150,6 @@ class Settings extends Component {
             descriptionErrText: ""
         })
 
-        console.log(this.state.descriptionInput.length);
-
         if(this.state.descriptionInput.length > 200) {
             this.setState({
                 descriptionErrAttr: true,
@@ -131,8 +157,25 @@ class Settings extends Component {
                 descriptionErrText: "Description can't be longer than 200 characters"
             })
             return false;
-        }
-        else return true;
+        } else return true;
+    }
+
+    isLocationValid = () => {
+        this.setState({
+            locationErrAttr: false,
+            locationShowErrText: false,
+            locationErrText: ""
+        })
+    
+        if(this.state.locationInput.length > 30){
+            this.setState({
+                locationErrAttr: true,
+                locationShowErrText: true,
+                locationErrText: "Location can't be longer than 30 characters"
+            })
+            return false;
+        } else return true
+
     }
 
     getCurrentData = async() => {
@@ -143,12 +186,23 @@ class Settings extends Component {
             this.setState({
                 emailInput: response.res.email,
                 numberInput: response.res.number,
-                descriptionInput: response.res.description
+                descriptionInput: response.res.description,
+                locationInput: response.res.location,
+                preference: response.res.preference
             })
+
+            for(let i=0; i<this.state.preference.length; i++){
+                let array = this.state.preference;
+                let key = array[i];
+                this.setState({
+                    [key]: true
+                })
+            }
+            
         } else {
             this.setState({ snackbarOpen: true});
         }
-    }
+    }    
 
     render() {
         const classes = this.props;
@@ -212,7 +266,7 @@ class Settings extends Component {
                                         </Grid>
                                     </Grid>
 
-                                    <Grid container spacing={2} alignItems="flex-end">
+                                    <Grid container spacing={2} alignItems="center">
                                         <Grid item>
                                             <MessageIcon />
                                         </Grid>
@@ -222,7 +276,7 @@ class Settings extends Component {
                                                 helperText={this.state.descriptionShowErrText?this.state.descriptionErrText:false}
                                                 multiline={true}
                                                 rows={3}
-                                                id="number" 
+                                                id="description" 
                                                 label="Description"
                                                 type="text"
                                                 fullWidth 
@@ -231,6 +285,51 @@ class Settings extends Component {
                                                 value={this.state.descriptionInput}
                                                 name="descriptionInput"/>
                                         </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} alignItems="flex-end">
+                                        <Grid item>
+                                            <HomeIcon />
+                                        </Grid>
+                                        <Grid item xs>
+                                            <TextField 
+                                                error={this.state.locationErrAttr?true:false}
+                                                helperText={this.state.locationShowErrText?this.state.locationErrText:false}
+                                                id="location" 
+                                                label="Location"
+                                                type="text"
+                                                fullWidth 
+                                                autoFocus  
+                                                onChange={e => this.handleChange(e)} 
+                                                value={this.state.locationInput}
+                                                name="locationInput"/>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container alignItems="center">
+                                            <Grid item>
+                                                <WcIcon />
+                                            </Grid>
+                                            <Paper variant="outlined" style={{ margin: '10px', paddingLeft: '10px'}}>
+                                                    <Grid item container style={{ width:'92%', marginTop:'20px' }}>
+                                                        <FormControl 
+                                                        error={this.state.checkboxErrAttr?true:false}
+                                                        style={{display:'block'}}>
+                                                            <FormLabel component="legend">Preference *</FormLabel>
+                                                            <FormControlLabel
+                                                                control={<Checkbox onChange={this.handleCheckbox} name="female" />}
+                                                                label="Female"
+                                                                checked={this.state.female}
+                                                            />
+                                                            <FormControlLabel
+                                                                control={<Checkbox onChange={this.handleCheckbox} name="male" />}
+                                                                label="Male"
+                                                                checked={this.state.male}
+                                                            />
+                                                            <FormHelperText hidden={this.state.checkboxShowErrText?false:true} error>Select at least one checkbox</FormHelperText>
+                                                        </FormControl>
+                                                    </Grid>
+                                            </Paper>
                                     </Grid>
 
                                     <Grid container justify="center" style={{ marginTop: '10px' }}>

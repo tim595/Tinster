@@ -7,12 +7,13 @@ export const receiveData = async (username) => {
     return res.data;
 }
 
-export const updateData = async (username, email, number, description) => {
+export const updateData = async (username, email, number, description, location) => {
     const res = await axios.post('http://localhost:3001/api/changeSettings/updateData', {
         userName: username,
         email: email,
         number: number,
-        description: description
+        description: description,
+        location: location
     });
     return res.data;
 }
