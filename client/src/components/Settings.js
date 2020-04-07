@@ -44,8 +44,8 @@ class Settings extends Component {
 
             selectedPreference: [],
 
-            img: null,
-            imgUrl: null
+            img: "",
+            imgUrl: ""
         }
     }
 
@@ -100,7 +100,6 @@ class Settings extends Component {
         if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid && isLocationValid && isPreferenceValid) {
             console.log(this.state.selectedPreference);
             let response = await updateData(imageFormObj);
-            console.log(response);
             if(response.success) {
                 this.setState({ 
                     snackbarOpen: true,
@@ -293,7 +292,6 @@ class Settings extends Component {
                                                 onChange={(e) => this.handleImageUpload(e)}
                                             />
                                         </Button>
-                                        {/* <img src="uploads\freddy.jpeg" alt="profilePic"/> */}
                                     </Grid>
                                     <Grid container spacing={2} alignItems="flex-end">
                                         <Grid item>
