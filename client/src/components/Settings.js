@@ -45,7 +45,9 @@ class Settings extends Component {
             selectedPreference: [],
 
             img: "",
-            imgUrl: ""
+            imgUrl: "",
+
+            loading: false
         }
     }
 
@@ -99,7 +101,13 @@ class Settings extends Component {
 
         if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid && isLocationValid && isPreferenceValid) {
             console.log(this.state.selectedPreference);
+            this.setState({
+                loading: true
+            })
             let response = await updateData(imageFormObj);
+            this.setState({
+                loading: false
+            })
             if(response.success) {
                 this.setState({ 
                     snackbarOpen: true,
@@ -409,7 +417,7 @@ class Settings extends Component {
                                             color="primary" 
                                             onClick={e => this.handleSubmit(e)}
                                             disabled={this.state.loading}
-                                            style={{ textTransform: "none", marginBottom: '15px' }}>Submit changes
+                                            style={{ textTransform: "none"}}>Submit changes
                                         </Button>
                                         {this.state.loading && <CircularProgress size={24} className="buttonProgress" />}
                                     </div>
