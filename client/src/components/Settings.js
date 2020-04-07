@@ -267,13 +267,14 @@ class Settings extends Component {
                     <Grid item style={{ maxWidth: '500px', width: '100%'}}>
                         <Paper className={classes.padding}>
                             <form noValidate>
-                                <div className={classes.margin}>
+                                <div className={classes.margin}  style={{margin: '15px'}}>
                                     <Grid container spacing={2} alignItems="flex-end">
                                         <Grid item>
                                             <MailOutline />
                                         </Grid>
                                         <Grid item xs>
                                             <TextField 
+                                                style={{marginTop: '15px'}}
                                                 error={this.state.emailErrAttr?true:false}
                                                 helperText={this.state.emailShowErrText?this.state.emailErrText:false}
                                                 id="email" 
@@ -294,6 +295,7 @@ class Settings extends Component {
                                         </Grid>
                                         <Grid item xs>
                                             <TextField 
+                                                style={{marginTop: '15px'}}
                                                 error={this.state.numberErrAttr?true:false}
                                                 helperText={this.state.numberShowErrText?this.state.numberErrText:false}
                                                 id="number" 
@@ -313,6 +315,7 @@ class Settings extends Component {
                                         </Grid>
                                         <Grid item xs>
                                             <TextField 
+                                                style={{marginTop: '15px'}}
                                                 error={this.state.descriptionErrAttr?true:false}
                                                 helperText={this.state.descriptionShowErrText?this.state.descriptionErrText:false}
                                                 multiline={true}
@@ -334,6 +337,7 @@ class Settings extends Component {
                                         </Grid>
                                         <Grid item xs>
                                             <TextField 
+                                                style={{marginTop: '15px'}}
                                                 error={this.state.locationErrAttr?true:false}
                                                 helperText={this.state.locationShowErrText?this.state.locationErrText:false}
                                                 id="location" 
@@ -351,7 +355,7 @@ class Settings extends Component {
                                             <Grid item>
                                                 <WcIcon />
                                             </Grid>
-                                            <Paper variant="outlined" style={{ margin: '10px', paddingLeft: '10px'}}>
+                                            <Paper variant="outlined" style={{ margin: '10px', marginTop: '20px', paddingLeft: '10px'}}>
                                                     <Grid item container style={{ width:'92%', marginTop:'20px' }}>
                                                         <FormControl 
                                                         error={this.state.preferenceErrAttr?true:false}
@@ -380,7 +384,7 @@ class Settings extends Component {
                                             color="primary" 
                                             onClick={e => this.handleSubmit(e)}
                                             disabled={this.state.loading}
-                                            style={{ textTransform: "none" }}>Submit changes
+                                            style={{ textTransform: "none", marginBottom: '15px' }}>Submit changes
                                         </Button>
                                         {this.state.loading && <CircularProgress size={24} className="buttonProgress" />}
                                     </div>
