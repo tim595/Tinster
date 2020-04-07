@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Grid } from '@material-ui/core';
 import Menubar from './Menubar';
 import CloseIcon from '@material-ui/icons/Close';
-import { Paper, withStyles, Button, CircularProgress, IconButton, Snackbar, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormHelperText } from '@material-ui/core';
+import { Grid, Paper, withStyles, Button, CircularProgress, IconButton, Snackbar, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormHelperText } from '@material-ui/core';
 import { MailOutline } from '@material-ui/icons';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import MessageIcon from '@material-ui/icons/Message';
 import HomeIcon from '@material-ui/icons/Home';
 import WcIcon from '@material-ui/icons/Wc';
 import { receiveData, updateData } from '../actions/changeSettings';
+
 
 const styles = theme => ({
     margin: {
@@ -52,7 +52,9 @@ class Settings extends Component {
             male: false,
             female: false,
 
-            selectedPreference: []
+            selectedPreference: [],
+
+            img: null
         }
     }
 
@@ -93,10 +95,20 @@ class Settings extends Component {
         const isPreferenceValid = this.isPreferenceValid();
 
         
-        let userName = 'freddy';
+        let username = 'freddy';
+
+        let imageFormObj = new FormData();
+        imageFormObj.append(username, this.state.img);
+        imageFormObj.append("username", username)
+        imageFormObj.append("email", this.state.emailInput)
+        imageFormObj.append("number", this.state.numberInput)
+        imageFormObj.append("description", this.state.descriptionInput)
+        imageFormObj.append("location", this.state.locationInput)
+        imageFormObj.append("preference", this.state.selectedPreference)
+
         if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid && isLocationValid && isPreferenceValid) {
             console.log(this.state.selectedPreference);
-            let response = await updateData(userName, this.state.emailInput, this.state.numberInput, this.state.descriptionInput, this.state.locationInput, this.state.selectedPreference);
+            let response = await updateData(imageFormObj);
             if(response.success) {
                 this.setState({ 
                     snackbarOpen: true,
@@ -216,8 +228,8 @@ class Settings extends Component {
     };
 
     getCurrentData = async() => {
-        let userName = 'freddy'; //später auf aktuellen User ändern
-        let response = await receiveData(userName);
+        let username = 'freddy'; //später auf aktuellen User ändern
+        let response = await receiveData(username);
 
         if(response.success) {
             this.setState({
@@ -243,7 +255,13 @@ class Settings extends Component {
              })
         }
     }
-    
+
+    handleImageUpload = e => {
+        this.setState({
+            img: e.target.files[0]
+        });
+    }
+
     componentDidMount = () => {
         this.getCurrentData()
     }
@@ -266,6 +284,20 @@ class Settings extends Component {
                         <Paper className={classes.padding}>
                             <form noValidate>
                                 <div className={classes.margin}  style={{margin: '15px'}}>
+                                    <Grid container spacing={2} alignItems="flex-end">
+                                        <Button
+                                            variant="outlined" 
+                                            color="primary"
+                                            component="label">
+                                            Upload Image
+                                            <input
+                                                type="file"
+                                                style={{ display: "none" }}
+                                                onChange={(e) => this.handleImageUpload(e)}
+                                            />
+                                        </Button>
+                                        {/* <img src="uploads\freddy.jpeg" alt="profilePic"/> */}
+                                    </Grid>
                                     <Grid container spacing={2} alignItems="flex-end">
                                         <Grid item>
                                             <MailOutline />
