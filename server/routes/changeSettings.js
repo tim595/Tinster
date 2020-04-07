@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     }
 });
 
-const fileFilter = (req, file, cb) => {
+const fileFilter = (req, file, cb) => {// damit nur Bilder hochgeladen werden
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true);
     } else {
@@ -25,14 +25,13 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 1024 * 1024 * 5
+        fileSize: 1024 * 1024 * 15 // 15mb
     },
     fileFilter: fileFilter
 });
 
 router.post('/receiveData', (req, res) => {
     const { userName } = req.body;
-    
     User.findOne({username: userName}, (err, result) => {
         if(err || result === null) {
             return res.json({ success: false, error: err });
@@ -47,7 +46,6 @@ router.post('/receiveData', (req, res) => {
 router.post('/updateData', upload.any(), (req, res) => {
     let { username, email, number, description, location, preference } = req.body;
     username = username.toLowerCase();
-    console.log(req)
 
     let valuesToUpdate = {
         $set:{

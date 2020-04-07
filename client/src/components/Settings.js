@@ -1,23 +1,13 @@
 import React, { Component } from 'react';
 import Menubar from './Menubar';
 import CloseIcon from '@material-ui/icons/Close';
-import { Grid, Paper, withStyles, Button, CircularProgress, IconButton, Snackbar, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormHelperText } from '@material-ui/core';
+import { Grid, Paper, Button, CircularProgress, IconButton, Snackbar, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormHelperText, Avatar } from '@material-ui/core';
 import { MailOutline } from '@material-ui/icons';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import MessageIcon from '@material-ui/icons/Message';
 import HomeIcon from '@material-ui/icons/Home';
 import WcIcon from '@material-ui/icons/Wc';
 import { receiveData, updateData } from '../actions/changeSettings';
-
-
-const styles = theme => ({
-    margin: {
-        margin: theme.spacing(2),
-    },
-    padding: {
-        padding: theme.spacing(1)
-    }
-});
 
 class Settings extends Component {
     constructor(props){
@@ -54,7 +44,8 @@ class Settings extends Component {
 
             selectedPreference: [],
 
-            img: null
+            img: null,
+            imgUrl: null
         }
     }
 
@@ -109,6 +100,7 @@ class Settings extends Component {
         if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid && isLocationValid && isPreferenceValid) {
             console.log(this.state.selectedPreference);
             let response = await updateData(imageFormObj);
+            console.log(response);
             if(response.success) {
                 this.setState({ 
                     snackbarOpen: true,
@@ -237,7 +229,8 @@ class Settings extends Component {
                 numberInput: response.res.number,
                 descriptionInput: response.res.description,
                 locationInput: response.res.location,
-                selectedPreference: response.res.preference
+                selectedPreference: response.res.preference,
+                imgUrl: response.res.image
             })
 
             for(let i=0; i<this.state.selectedPreference.length; i++){
@@ -258,7 +251,8 @@ class Settings extends Component {
 
     handleImageUpload = e => {
         this.setState({
-            img: e.target.files[0]
+            img: e.target.files[0],
+            imgUrl: URL.createObjectURL(e.target.files[0])
         });
     }
 
@@ -267,28 +261,31 @@ class Settings extends Component {
     }
 
     render() {
-        const classes = this.props;
-
         return(
             <div className="settingsDiv">
                 <Menubar />
                 <Grid 
-                container 
-                spacing={0} 
-                direction="column"
-                alignItems="center"
-                justify="center"
-                style={{ minHeight: '80vh' }}
+                    container 
+                    spacing={0} 
+                    direction="column"
+                    alignItems="center"
+                    justify="center"
+                    style={{ minHeight: '100vh' }}
                 >
                     <Grid item style={{ maxWidth: '500px', width: '100%'}}>
-                        <Paper className={classes.padding}>
+                        <Paper className="settingsPaper">
                             <form noValidate>
-                                <div className={classes.margin}  style={{margin: '15px'}}>
+                                <div style={{margin: '15px'}}>
                                     <Grid container spacing={2} alignItems="flex-end">
+                                        <Grid style={{height: 'fit-content', marginBottom: '0.5em'}} item xs={12}>
+                                            <Avatar className="settingsAvatar" src={this.state.imgUrl}/>
+                                        </Grid>
                                         <Button
                                             variant="outlined" 
                                             color="primary"
-                                            component="label">
+                                            component="label"
+                                            size="small"
+                                            style={{margin: "auto"}}>
                                             Upload Image
                                             <input
                                                 type="file"
@@ -447,4 +444,4 @@ class Settings extends Component {
     }
 }
 
-export default withStyles(styles)(Settings);
+export default Settings;
