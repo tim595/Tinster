@@ -29,7 +29,6 @@ class Settings extends Component {
             locationInput: "",
             snackbarOpen: false,
             snackbarMessage: "",
-            setValues : true,
 
             emailErrAttr: false,
             emailShowErrText: false,
@@ -243,17 +242,14 @@ class Settings extends Component {
                 snackbarMessage: "A MongoDB-Server error occurred"
              })
         }
-        this.setState({
-            setValues: false
-        })
-    }    
+    }
+    
+    componentDidMount = () => {
+        this.getCurrentData()
+    }
 
     render() {
         const classes = this.props;
-
-        if(this.state.setValues) {
-            this.getCurrentData()
-        }
 
         return(
             <div className="settingsDiv">
