@@ -64,13 +64,14 @@ class Settings extends Component {
 
     handleCheckbox = e => {
         if ( e.target.type === "checkbox") {
-            var prefArr = [...this.state.selectedPreference];
-            var index = prefArr.indexOf(e.target.name);
-            if (index !== -1) {
-              prefArr.splice(index, 1);
-              this.setState({ selectedPreference: prefArr });
-            } else {
-              this.setState({ selectedPreference: [...this.state.selectedPreference, e.target.name] });
+            if(e.target.name === "female") {
+                this.setState({
+                    female: !this.state.female
+                })
+            } else if(e.target.name === "male") {
+                this.setState({
+                    male: !this.state.male
+                })
             }
         }
     }
@@ -81,11 +82,13 @@ class Settings extends Component {
         const isNumberInputValid = this.isNumberInputValid();
         const isDescriptionInputValid = this.isDescriptionInputValid();
         const isLocationValid = this.isLocationValid();
+        const isPreferenceValid = this.isPreferenceValid();
 
         
         let userName = 'freddy';
-        if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid && isLocationValid) {
-            let response = await updateData(userName, this.state.emailInput, this.state.numberInput, this.state.descriptionInput, this.state.locationInput);
+        if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid && isLocationValid && isPreferenceValid) {
+            console.log(this.state.selectedPreference);
+            let response = await updateData(userName, this.state.emailInput, this.state.numberInput, this.state.descriptionInput, this.state.locationInput, this.selectedPreference);
             if(response.success) {
                 console.log("noice");
             }
@@ -175,8 +178,23 @@ class Settings extends Component {
             })
             return false;
         } else return true
-
     }
+
+    isPreferenceValid = () => {
+        let prefArr = [];
+        if(this.state.male === true) {
+            prefArr.push("male");
+        }
+        if(this.state.female === true) {
+            prefArr.push("female");
+        }
+        this.setState({
+            selectedPreference: prefArr
+        })
+        if(this.state.selectedPreference.length > 0) {
+            return true;
+        } else return false;
+    };
 
     getCurrentData = async() => {
         let userName = 'freddy'; //später auf aktuellen User ändern
