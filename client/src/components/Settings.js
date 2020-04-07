@@ -28,6 +28,7 @@ class Settings extends Component {
             descriptionInput: "",
             locationInput: "",
             snackbarOpen: false,
+            snackbarMessage: "",
             setValues : true,
 
             emailErrAttr: false,
@@ -46,8 +47,8 @@ class Settings extends Component {
             locationShowErrText: false,
             locationErrText: "",
 
-            checkboxErrAttr: false,
-            checkboxShowErrText: false,
+            preferenceErrAttr: false,
+            preferenceShowErrText: false,
 
             male: false,
             female: false,
@@ -73,6 +74,14 @@ class Settings extends Component {
                     male: !this.state.male
                 })
             }
+            var prefArr = [...this.state.selectedPreference];
+            var index = prefArr.indexOf(e.target.name);
+            if (index !== -1) {
+              prefArr.splice(index, 1);
+              this.setState({ selectedPreference: prefArr });
+            } else {
+              this.setState({ selectedPreference: [...this.state.selectedPreference, e.target.name] });
+            }
         }
     }
 
@@ -88,15 +97,28 @@ class Settings extends Component {
         let userName = 'freddy';
         if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid && isLocationValid && isPreferenceValid) {
             console.log(this.state.selectedPreference);
-            let response = await updateData(userName, this.state.emailInput, this.state.numberInput, this.state.descriptionInput, this.state.locationInput, this.selectedPreference);
+            let response = await updateData(userName, this.state.emailInput, this.state.numberInput, this.state.descriptionInput, this.state.locationInput, this.state.selectedPreference);
             if(response.success) {
-                console.log("noice");
+                this.setState({ 
+                    snackbarOpen: true,
+                    snackbarMessage: "Your profile has successfully been updated"
+                 })
             }
             else {
-                this.setState({ snackbarOpen: true })
+                this.setState({ 
+                    snackbarOpen: true,
+                    snackbarMessage: "A MongoDB-Server error occurred"
+                 })
             }
         }
     }
+
+    handleSnackClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        this.setState({ snackbarOpen: false });
+      };
 
     isEmailInputValid = () => {
         this.setState({
@@ -181,19 +203,17 @@ class Settings extends Component {
     }
 
     isPreferenceValid = () => {
-        let prefArr = [];
-        if(this.state.male === true) {
-            prefArr.push("male");
-        }
-        if(this.state.female === true) {
-            prefArr.push("female");
-        }
         this.setState({
-            selectedPreference: prefArr
+            preferenceErrAttr: false,
+            preferenceShowErrText: false,
         })
-        if(this.state.selectedPreference.length > 0) {
-            return true;
-        } else return false;
+        if(this.state.selectedPreference.length === 0) {
+            this.setState({
+                preferenceErrAttr: true,
+                preferenceShowErrText: true,
+            })  
+            return false;
+        } else return true;
     };
 
     getCurrentData = async() => {
@@ -206,11 +226,11 @@ class Settings extends Component {
                 numberInput: response.res.number,
                 descriptionInput: response.res.description,
                 locationInput: response.res.location,
-                preference: response.res.preference
+                selectedPreference: response.res.preference
             })
 
-            for(let i=0; i<this.state.preference.length; i++){
-                let array = this.state.preference;
+            for(let i=0; i<this.state.selectedPreference.length; i++){
+                let array = this.state.selectedPreference;
                 let key = array[i];
                 this.setState({
                     [key]: true
@@ -218,7 +238,10 @@ class Settings extends Component {
             }
             
         } else {
-            this.setState({ snackbarOpen: true});
+            this.setState({ 
+                snackbarOpen: true,
+                snackbarMessage: "A MongoDB-Server error occurred"
+             })
         }
     }    
 
@@ -331,7 +354,7 @@ class Settings extends Component {
                                             <Paper variant="outlined" style={{ margin: '10px', paddingLeft: '10px'}}>
                                                     <Grid item container style={{ width:'92%', marginTop:'20px' }}>
                                                         <FormControl 
-                                                        error={this.state.checkboxErrAttr?true:false}
+                                                        error={this.state.preferenceErrAttr?true:false}
                                                         style={{display:'block'}}>
                                                             <FormLabel component="legend">Preference *</FormLabel>
                                                             <FormControlLabel
@@ -344,7 +367,7 @@ class Settings extends Component {
                                                                 label="Male"
                                                                 checked={this.state.male}
                                                             />
-                                                            <FormHelperText hidden={this.state.checkboxShowErrText?false:true} error>Select at least one checkbox</FormHelperText>
+                                                            <FormHelperText hidden={this.state.preferenceShowErrText?false:true} error>Select at least one checkbox</FormHelperText>
                                                         </FormControl>
                                                     </Grid>
                                             </Paper>
@@ -375,7 +398,7 @@ class Settings extends Component {
                     open={this.state.snackbarOpen}
                     autoHideDuration={10000}
                     onClose={this.handleSnackClose}
-                    message="A MongoDB-Server error occurred"
+                    message={this.state.snackbarMessage}
                     action={
                     <React.Fragment>
                         <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackClose}>
