@@ -101,7 +101,7 @@ class Settings extends Component {
             if(response.success) {
                 this.setState({ 
                     snackbarOpen: true,
-                    snackbarMessage: "Your profile has successfully been updated"
+                    snackbarMessage: "Profile has successfully been updated"
                  })
             }
             else {
@@ -243,6 +243,9 @@ class Settings extends Component {
                 snackbarMessage: "A MongoDB-Server error occurred"
              })
         }
+        this.setState({
+            setValues: false
+        })
     }    
 
     render() {
@@ -250,7 +253,6 @@ class Settings extends Component {
 
         if(this.state.setValues) {
             this.getCurrentData()
-            this.setState({ setValues : false })
         }
 
         return(
