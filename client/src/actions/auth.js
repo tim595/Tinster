@@ -37,6 +37,7 @@ export const signUp = async (email, username, password, gender, preference) => {
     });
     // console.log("res: ", res);
     localStorage.setItem("jwtToken", res.data.token);
+    localStorage.setItem("username", username);
     setAuhorizationToken(res.data.token);
     return res.data;
 };
