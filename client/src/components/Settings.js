@@ -91,7 +91,9 @@ class Settings extends Component {
         let username = 'freddy';
 
         let imageFormObj = new FormData();
-        imageFormObj.append(username, this.state.img);
+        if(this.state.img !== ""){
+            imageFormObj.append(username, this.state.img);
+        }
         imageFormObj.append("username", username)
         imageFormObj.append("email", this.state.emailInput)
         imageFormObj.append("number", this.state.numberInput)
@@ -388,8 +390,8 @@ class Settings extends Component {
                                             <Grid item>
                                                 <WcIcon />
                                             </Grid>
-                                            <Paper variant="outlined" style={{ margin: '10px', marginTop: '20px', paddingLeft: '10px'}}>
-                                                    <Grid item container style={{ width:'92%', marginTop:'20px' }}>
+                                            <Paper variant="outlined" style={{ margin: '10px', marginTop: '20px', paddingLeft: '10px', paddingTop: '10px'}}>
+                                                    <Grid item container>
                                                         <FormControl 
                                                         error={this.state.preferenceErrAttr?true:false}
                                                         style={{display:'block'}}>

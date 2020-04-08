@@ -46,17 +46,30 @@ router.post('/receiveData', (req, res) => {
 router.post('/updateData', upload.any(), (req, res) => {
     let { username, email, number, description, location, preference } = req.body;
     username = username.toLowerCase();
-
-    let valuesToUpdate = {
-        $set:{
-            email: email,
-            number: number,
-            description: description,
-            location: location,
-            preference: preference,
-            image: req.files[0].path
+    let valuesToUpdate;
+    if(req.files[0]){
+        valuesToUpdate = {
+            $set:{
+                email: email,
+                number: number,
+                description: description,
+                location: location,
+                preference: preference,
+                image: req.files[0].path
+            }
         }
-    };
+    } else {
+        valuesToUpdate = {
+            $set:{
+                email: email,
+                number: number,
+                description: description,
+                location: location,
+                preference: preference,
+            }
+        }
+    }
+    
 
     User.updateOne({username: username}, valuesToUpdate, (err, result) => {
         if(err || result === null) {
