@@ -59,22 +59,19 @@ class Settings extends Component {
 
     handleCheckbox = e => {
         if ( e.target.type === "checkbox") {
-            if(e.target.name === "female") {
-                this.setState({
-                    female: !this.state.female
-                })
-            } else if(e.target.name === "male") {
-                this.setState({
-                    male: !this.state.male
-                })
-            }
-            var prefArr = [...this.state.selectedPreference];
-            var index = prefArr.indexOf(e.target.name);
+            let prefArr = [...this.state.selectedPreference]; // obj to arr
+            let index = prefArr.indexOf(e.target.name); // such nach value im Array
             if (index !== -1) {
-              prefArr.splice(index, 1);
-              this.setState({ selectedPreference: prefArr });
+                prefArr.splice(index, 1); // wenn die value existiert, wird sie entfernt
+                this.setState({
+                    selectedPreference: prefArr,
+                    [e.target.name]: !this.state[e.target.name]
+                });
             } else {
-              this.setState({ selectedPreference: [...this.state.selectedPreference, e.target.name] });
+                this.setState({
+                    selectedPreference: [...this.state.selectedPreference, e.target.name],
+                    [e.target.name]: !this.state[e.target.name]
+                });
             }
         }
     }
@@ -241,12 +238,9 @@ class Settings extends Component {
                 selectedPreference: response.res.preference,
                 imgUrl: response.res.image
             })
-
-            for(let i=0; i<this.state.selectedPreference.length; i++){
-                let array = this.state.selectedPreference;
-                let key = array[i];
+            for(let gender of response.res.preference){
                 this.setState({
-                    [key]: true
+                    [gender]: true
                 })
             }
             
