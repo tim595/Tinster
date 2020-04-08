@@ -47,7 +47,8 @@ class Settings extends Component {
             img: "",
             imgUrl: "",
 
-            loading: false
+            loading: false,
+            fetchingData: false
         }
     }
 
@@ -227,8 +228,13 @@ class Settings extends Component {
 
     getCurrentData = async() => {
         let username = 'freddy'; //später auf aktuellen User ändern
+        this.setState({
+            fetchingData: true
+        })
         let response = await receiveData(username);
-
+        this.setState({
+            fetchingData: false
+        })
         if(response.success) {
             this.setState({
                 emailInput: response.res.email,
@@ -276,7 +282,8 @@ class Settings extends Component {
                     style={{ minHeight: '100vh' }}
                 >
                     <Grid item style={{ maxWidth: '500px', width: '100%'}}>
-                        <Paper className="settingsPaper">
+                        <Paper className={`settingsPaper ${this.state.fetchingData ? "loadingOverlay" : ""}`} >
+                            <CircularProgress size={50} className="largeLoading" style={this.state.fetchingData?{display:'block'}:{display:'none'}}/>
                             <form noValidate>
                                 <div style={{margin: '15px'}}>
                                     <Grid container spacing={2} alignItems="flex-end">
@@ -310,7 +317,6 @@ class Settings extends Component {
                                                 label="E-Mail"
                                                 type="email" 
                                                 fullWidth 
-                                                autoFocus 
                                                 required  
                                                 onChange={e => this.handleChange(e)} 
                                                 value={this.state.emailInput}
@@ -331,7 +337,6 @@ class Settings extends Component {
                                                 label="Phone number"
                                                 type="text"
                                                 fullWidth 
-                                                autoFocus  
                                                 onChange={e => this.handleChange(e)} 
                                                 value={this.state.numberInput}
                                                 name="numberInput"/>
@@ -353,7 +358,6 @@ class Settings extends Component {
                                                 label="Description"
                                                 type="text"
                                                 fullWidth 
-                                                autoFocus  
                                                 onChange={e => this.handleChange(e)} 
                                                 value={this.state.descriptionInput}
                                                 name="descriptionInput"/>
@@ -373,7 +377,6 @@ class Settings extends Component {
                                                 label="Location"
                                                 type="text"
                                                 fullWidth 
-                                                autoFocus  
                                                 onChange={e => this.handleChange(e)} 
                                                 value={this.state.locationInput}
                                                 name="locationInput"/>
