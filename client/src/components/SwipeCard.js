@@ -24,7 +24,7 @@ class SwipeCard extends Component {
       };
 
     addLike = async() => {
-        let userName = 'freddy'; // eigene id/username aus der aktuellen session entnehmen
+        let userName = localStorage.getItem("username"); // eigene id/username aus der aktuellen session entnehmen
         let swipeID = uuidv4(); // soll später die id/username des angezeigten users zurückgeben
 
         let response = await like( userName, swipeID );
@@ -36,7 +36,7 @@ class SwipeCard extends Component {
     };
 
     addDislike = async() => {
-        let userName = 'freddy';
+        let userName = localStorage.getItem("username");
         let swipeID = uuidv4();
 
         let response = await  dislike( userName, swipeID );

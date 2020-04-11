@@ -86,7 +86,7 @@ class Settings extends Component {
         const isPreferenceValid = this.isPreferenceValid();
 
         
-        let username = 'freddy';
+        let username = localStorage.getItem("username");
 
         let imageFormObj = new FormData();
         if(this.state.img !== ""){
@@ -227,7 +227,7 @@ class Settings extends Component {
     };
 
     getCurrentData = async() => {
-        let username = 'freddy'; //später auf aktuellen User ändern
+        let username = localStorage.getItem("username"); //später auf aktuellen User ändern
         this.setState({
             fetchingData: true
         })

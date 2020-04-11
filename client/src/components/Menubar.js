@@ -15,7 +15,7 @@ class Menubar extends Component {
                     <div style={{ width: '100%' }}>
                         <Box display="flex">    
                             <Box display="flex" justifyContent="flex-start" style={{ width: '33.33%'}}>
-                                <Link style={{color: 'white'}} to="/settings">
+                                <Link style={{color: 'white'}} to="/settings" title="Settings">
                                     <IconButton color="inherit" aria-label="menu">
                                         <SettingsIcon />
                                     </IconButton>
@@ -29,12 +29,12 @@ class Menubar extends Component {
                                 </Link>
                             </Box>
                             <Box display="flex" justifyContent="flex-end" style={{ width: '33.33%'}}>
-                                <Link style={{color: 'white'}} to="/profile">
+                                <Link style={{color: 'white'}} to="/profile" title="Profile">
                                     <IconButton color="inherit" aria-label="account of current user" aria-controls="menu-appbar">
                                         <AccountCircle />
                                     </IconButton>
                                 </Link>
-                                <Link style={{color: 'white'}} to="/">
+                                <Link style={{color: 'white'}} to="/" title="Logout">
                                     <IconButton color="inherit" aria-label="logout" aria-controls="menu-appbar" onClick={() => logout()}>
                                         <ExitToAppIcon />
                                     </IconButton>
