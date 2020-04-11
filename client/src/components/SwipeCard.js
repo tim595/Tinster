@@ -24,12 +24,12 @@ class SwipeCard extends Component {
       };
 
     addLike = async() => {
-        let userName = localStorage.getItem("username"); // eigene id/username aus der aktuellen session entnehmen
+        let userName = localStorage.getItem("username");
         let swipeID = uuidv4(); // soll später die id/username des angezeigten users zurückgeben
 
         let response = await like( userName, swipeID );
         if(response.success) {
-            // irgendwas, um die nächste Swipecard zu zeigen
+            this.props.getNewProfile();
         } else {
             this.setState({ snackbarOpen: true });
         }
@@ -46,6 +46,8 @@ class SwipeCard extends Component {
             this.setState({ snackbarOpen: true});
         }
     };
+
+
 
 
 
