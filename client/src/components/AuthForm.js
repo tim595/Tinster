@@ -476,6 +476,7 @@ class AuthForm extends Component {
                                 <Grid container justify="center" style={{ marginTop: '10px' }}>
                                     <div className="loadingWrapper">
                                         <Button 
+                                            type="submit"
                                             variant="outlined" 
                                             color="primary" 
                                             onClick={e => this.handleSubmit(e)} 
