@@ -3,7 +3,8 @@ import { Paper, withStyles, Grid, TextField, Button, Snackbar, IconButton, Circu
 import { Face, Fingerprint, MailOutline } from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
 import WcIcon from '@material-ui/icons/Wc';
-import { Link, navigate } from '@reach/router';
+import { Link } from "react-router-dom";
+
 import { signIn, signUp, checkUsername } from '../actions/auth'
 
 const styles = theme => ({
@@ -110,7 +111,7 @@ class AuthForm extends Component {
                     loading: false
                 });
                 if(response.success){
-                    navigate('/home');
+                    this.props.history.push("/home");
                 }else if(!response.userExists && !response.error) {
                     this.setState({
                         usernameErrAttr: true,
@@ -160,7 +161,7 @@ class AuthForm extends Component {
                 
                 response = await signUp(this.state.emailInput, this.state.usernameInput, this.state.passwordInput, this.state.genderRadio, this.state.selectedPreference );
                 if(response.success){
-                    navigate('/home');
+                    this.props.history.push("/home");
                 }
             }
             this.setState({
