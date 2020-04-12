@@ -41,7 +41,7 @@ class SwipeCard extends Component {
 
         let response = await  dislike( userName, swipeID );
         if(response.success) {
-
+            this.props.getNewProfile();
         } else {
             this.setState({ snackbarOpen: true});
         }

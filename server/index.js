@@ -28,6 +28,6 @@ app.use('/uploads', express.static(__dirname +  '/uploads'));
 app.use('/api/auth', authRoutes);
 app.use('/api/button', loginRequired, btnFunctions);
 app.use('/api/changeSettings', loginRequired, changeSettings);
-app.use('/api/swipe', swipe);
+app.use('/api/swipe', loginRequired, swipe);
 
 app.listen(API_PORT, () => console.log(`Server läuft auf http://localhost:${API_PORT}`));

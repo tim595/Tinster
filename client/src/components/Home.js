@@ -16,6 +16,8 @@ class Home extends Component {
             likes: [],
             dislikes: [],
             selectedPreference: [],
+
+            newUser: {},
             
             loading: false
         }
@@ -44,7 +46,22 @@ class Home extends Component {
     getNewProfile = async () => {
         let likesDislikes = this.state.likes.concat(this.state.dislikes);
 
-        let newUser = await getNewUser(this.state.username, likesDislikes, this.state.selectedPreference);
+        const response = await getNewUser(this.state.username, likesDislikes, this.state.selectedPreference);
+        if(response.success) {
+            let newUser = response.newUser;
+            if (newUser === null) {
+                // handle no user found
+            } else {
+                this.setState({
+                    newUser: newUser
+                })
+            }
+        }else {
+            // this.setState({ 
+            //      snackbarOpen: true,
+            //      snackbarMessage: "A MongoDB-Server error occurred"
+            // })
+        }
     }
 
     componentDidMount = () => {
@@ -60,10 +77,10 @@ class Home extends Component {
                 <div className="hiddenDiv" style={{visibility: 'hidden', flex:1 }}>
                 </div>
                 <div className="swipeCardDiv">
-                    <SwipeCard getNewProfile={this.getNewProfile} triggerProfile={this.triggerProfile}/>
+                    <SwipeCard newUser={ this.state.newUser } getNewProfile={this.getNewProfile} triggerProfile={this.triggerProfile}/>
                 </div>
                 <div style={{ flex:1, margin: '5em 0 5em 1em' }}>
-                    <ProfileCard showProfile={this.state.showProfile} />
+                    <ProfileCard newUser={ this.state.newUser } showProfile={this.state.showProfile} />
                 </div>
             </div>
         )
