@@ -53,19 +53,21 @@ class SwipeCard extends Component {
 
 
     render() {
+        const { newUser, triggerProfile } = this.props;
+        console.log(newUser.image === 'none'?"https://via.placeholder.com/400x600?text=NoImage":newUser.image);
         return(
             <Paper className="swipePaper">
                 <Grid container direction="column" justify="center" alignItems="center">
                     <Grid className="swipeContainer">
-                        <img src="https://source.unsplash.com/400x600/?hamster" alt="hamster_image"></img>
+                        <img src={newUser.image === 'none'?"https://source.unsplash.com/400x600/?hamster":newUser.image} alt="hamster_image"></img>
                     </Grid>
                     <Grid item style={{  width:'80%', marginTop:'5px'}}>
-                        <p className="nameTag">Freddy, 14 Month</p>
+                        <p className="nameTag">{newUser.username + ", 14 Month"}</p>
                     </Grid>
                     <Grid item className="swipeButtons">
                             <CheckCircleIcon className="cardIcons" style={{color:'lightgreen'}} onClick={this.addLike} />
                             <CancelIcon className="cardIcons" style={{color:'orangered'}} onClick={this.addDislike}/>
-                        <HelpIcon className="cardIcons" onClick={this.props.triggerProfile} style={{color:'lightblue'}} />
+                        <HelpIcon className="cardIcons" onClick={triggerProfile} style={{color:'lightblue'}} />
                     </Grid>
                     <Snackbar
                     anchorOrigin={{

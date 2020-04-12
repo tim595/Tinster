@@ -9,7 +9,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 class ProfileCard extends Component {
     render() {
         const { newUser } = this.props;
-        console.log(newUser);
         return(
             this.props.showProfile && (
                 <Paper className="swipePaper">
