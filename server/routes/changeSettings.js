@@ -45,6 +45,7 @@ router.post('/receiveData', (req, res) => {
 
 router.post('/updateData', upload.any(), (req, res) => {
     let { username, email, number, description, location, preference } = req.body;
+    let preferenceArray = preference.split(',');
     username = username.toLowerCase();
     let valuesToUpdate;
     if(req.files[0]){
@@ -54,7 +55,7 @@ router.post('/updateData', upload.any(), (req, res) => {
                 number: number,
                 description: description,
                 location: location,
-                preference: preference,
+                preference: preferenceArray,
                 image: req.files[0].path
             }
         }
@@ -65,11 +66,10 @@ router.post('/updateData', upload.any(), (req, res) => {
                 number: number,
                 description: description,
                 location: location,
-                preference: preference,
+                preference: preferenceArray,
             }
         }
-    }
-    
+    }    
 
     User.updateOne({username: username}, valuesToUpdate, (err, result) => {
         if(err || result === null) {
