@@ -49,6 +49,7 @@ class Home extends Component {
         const response = await getNewUser(this.state.username, likesDislikes, this.state.selectedPreference);
         if(response.success) {
             let newUser = response.newUser;
+            console.log("newUser: ", newUser);
             if (newUser === null) {
                 // handle no user found
             } else {
@@ -57,6 +58,7 @@ class Home extends Component {
                 })
             }
         }else {
+            console.log(response);
             // this.setState({ 
             //      snackbarOpen: true,
             //      snackbarMessage: "A MongoDB-Server error occurred"
