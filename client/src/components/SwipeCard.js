@@ -5,7 +5,6 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HelpIcon from '@material-ui/icons/Help';
 import CloseIcon from '@material-ui/icons/Close';
-import { v4 as uuidv4 } from 'uuid';
 import { like, dislike } from '../actions/likeDislike'
 
 class SwipeCard extends Component {
@@ -25,10 +24,11 @@ class SwipeCard extends Component {
 
     addLike = async() => {
         let userName = localStorage.getItem("username");
-        let swipeID = uuidv4(); // soll später die id/username des angezeigten users zurückgeben
+        let swipeID = this.props.newUser.username; // soll später die id/username des angezeigten users zurückgeben
 
         let response = await like( userName, swipeID );
         if(response.success) {
+            this.props.updateLikes(this.props.newUser.username);
             this.props.getNewProfile();
         } else {
             this.setState({ snackbarOpen: true });
@@ -37,10 +37,11 @@ class SwipeCard extends Component {
 
     addDislike = async() => {
         let userName = localStorage.getItem("username");
-        let swipeID = uuidv4();
+        let swipeID = this.props.newUser.username;
 
         let response = await  dislike( userName, swipeID );
         if(response.success) {
+            this.props.updateDislikes(this.props.newUser.username);
             this.props.getNewProfile();
         } else {
             this.setState({ snackbarOpen: true});
@@ -54,7 +55,6 @@ class SwipeCard extends Component {
 
     render() {
         const { newUser, triggerProfile } = this.props;
-        console.log(newUser.image === 'none'?"https://via.placeholder.com/400x600?text=NoImage":newUser.image);
         return(
             <Paper className="swipePaper">
                 <Grid container direction="column" justify="center" alignItems="center">

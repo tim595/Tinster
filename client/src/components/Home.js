@@ -46,6 +46,7 @@ class Home extends Component {
     getNewProfile = async () => {
         let likesDislikes = this.state.likes.concat(this.state.dislikes);
 
+
         const response = await getNewUser(this.state.username, likesDislikes, this.state.selectedPreference);
         if(response.success) {
             let newUser = response.newUser;
@@ -53,6 +54,7 @@ class Home extends Component {
             if (newUser === null) {
                 // handle no user found
             } else {
+                console.log("updated User: ", newUser);
                 this.setState({
                     newUser: newUser
                 })
@@ -64,6 +66,29 @@ class Home extends Component {
             //      snackbarMessage: "A MongoDB-Server error occurred"
             // })
         }
+    }
+
+    getUpdatedLikeDislike = (array) => {
+        let likesDislikes = this.state.likes.concat(this.state.dislikes)
+        this.setState({
+            likesDislikes: likesDislikes
+        })
+    }
+
+    updateLikes = (username) => {
+        let likes = this.state.likes;
+        likes.push(username);
+        this.setState({
+            likes: likes
+        })
+    }
+
+    updateDislikes = (username) => {
+        let dislikes = this.state.dislikes;
+        dislikes.push(username);
+        this.setState({
+            dislikes: dislikes
+        })
     }
 
     componentDidMount = () => {
@@ -79,7 +104,12 @@ class Home extends Component {
                 <div className="hiddenDiv" style={{visibility: 'hidden', flex:1 }}>
                 </div>
                 <div className="swipeCardDiv">
-                    <SwipeCard newUser={ this.state.newUser } getNewProfile={this.getNewProfile} triggerProfile={this.triggerProfile}/>
+                    <SwipeCard updateLikes={this.updateLikes} 
+                        updateDislikes={this.updateDislikes} 
+                        newUser={ this.state.newUser } 
+                        getNewProfile={this.getNewProfile} 
+                        triggerProfile={this.triggerProfile}
+                    />
                 </div>
                 <div style={{ flex:1, margin: '5em 0 5em 1em' }}>
                     <ProfileCard newUser={ this.state.newUser } showProfile={this.state.showProfile} />
