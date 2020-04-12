@@ -100,7 +100,6 @@ class Settings extends Component {
         imageFormObj.append("preference", this.state.selectedPreference)
 
         if(isEmailInputValid && isNumberInputValid && isDescriptionInputValid && isLocationValid && isPreferenceValid) {
-            console.log(this.state.selectedPreference);
             this.setState({
                 loading: true
             })
