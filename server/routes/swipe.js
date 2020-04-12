@@ -10,8 +10,10 @@ router.post('/getNewUser', (req, res) => {
         username: { "$nin": [username, ...likesDislikes] }
     }
     User.findOne( queryObj, (err, result) => {
-        if ( err || result === null ) {
+        if ( err ) {
             return res.json({ success: false, error: err });
+        } else if ( result === null ){
+            return res.json({ success: true, newUser: null });
         } else {
             return res.json({ success: true, newUser: result });
         }

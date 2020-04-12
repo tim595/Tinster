@@ -18,6 +18,7 @@ class Home extends Component {
             selectedPreference: [],
 
             newUser: {},
+            userAvailable: false,
             
             loading: false
         }
@@ -46,17 +47,17 @@ class Home extends Component {
     getNewProfile = async () => {
         let likesDislikes = this.state.likes.concat(this.state.dislikes);
 
-
         const response = await getNewUser(this.state.username, likesDislikes, this.state.selectedPreference);
         if(response.success) {
             let newUser = response.newUser;
-            console.log("newUser: ", newUser);
-            if (newUser === null) {
-                // handle no user found
-            } else {
-                console.log("updated User: ", newUser);
+            if (!newUser) {
                 this.setState({
-                    newUser: newUser
+                    userAvailable: false
+                })
+            } else {
+                this.setState({
+                    newUser: newUser,
+                    userAvailable: true
                 })
             }
         }else {
@@ -104,7 +105,8 @@ class Home extends Component {
                 <div className="hiddenDiv" style={{visibility: 'hidden', flex:1 }}>
                 </div>
                 <div className="swipeCardDiv">
-                    <SwipeCard updateLikes={this.updateLikes} 
+                    <SwipeCard userAvailable={this.state.userAvailable}
+                        updateLikes={this.updateLikes} 
                         updateDislikes={this.updateDislikes} 
                         newUser={ this.state.newUser } 
                         getNewProfile={this.getNewProfile} 

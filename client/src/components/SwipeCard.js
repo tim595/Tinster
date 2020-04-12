@@ -54,38 +54,45 @@ class SwipeCard extends Component {
 
 
     render() {
-        const { newUser, triggerProfile } = this.props;
+        const { newUser, triggerProfile, userAvailable } = this.props;
         return(
             <Paper className="swipePaper">
                 <Grid container direction="column" justify="center" alignItems="center">
-                    <Grid className="swipeContainer">
-                        <img src={newUser.image === 'none'?"https://source.unsplash.com/400x600/?hamster":newUser.image} alt="hamster_image"></img>
-                    </Grid>
-                    <Grid item style={{  width:'80%', marginTop:'5px'}}>
-                        <p className="nameTag">{newUser.username + ", 14 Month"}</p>
-                    </Grid>
-                    <Grid item className="swipeButtons">
-                            <CheckCircleIcon className="cardIcons" style={{color:'lightgreen'}} onClick={this.addLike} />
-                            <CancelIcon className="cardIcons" style={{color:'orangered'}} onClick={this.addDislike}/>
-                        <HelpIcon className="cardIcons" onClick={triggerProfile} style={{color:'lightblue'}} />
-                    </Grid>
-                    <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
-                    open={this.state.snackbarOpen}
-                    autoHideDuration={10000}
-                    onClose={this.handleSnackClose}
-                    message="A MongoDB-Server error occurred"
-                    action={
-                    <React.Fragment>
-                        <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackClose}>
-                        <CloseIcon fontSize="small" />
-                        </IconButton>
-                    </React.Fragment>
-                    }
-                />
+                    {userAvailable?(
+                    <> 
+                        <Grid className="swipeContainer">
+                            <img src={newUser.image === 'none'?"https://source.unsplash.com/400x600/?hamster":newUser.image} alt="hamster_image"></img>
+                        </Grid>
+                        <Grid item style={{  width:'80%', marginTop:'5px'}}>
+                            <p className="nameTag">{newUser.username + ", 14 Month"}</p>
+                        </Grid>
+                        <Grid item className="swipeButtons">
+                                <CheckCircleIcon className="cardIcons" style={{color:'lightgreen'}} onClick={this.addLike} />
+                                <CancelIcon className="cardIcons" style={{color:'orangered'}} onClick={this.addDislike}/>
+                            <HelpIcon className="cardIcons" onClick={triggerProfile} style={{color:'lightblue'}} />
+                        </Grid>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            open={this.state.snackbarOpen}
+                            autoHideDuration={10000}
+                            onClose={this.handleSnackClose}
+                            message="A MongoDB-Server error occurred"
+                            action={
+                            <React.Fragment>
+                                <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackClose}>
+                                <CloseIcon fontSize="small" />
+                                </IconButton>
+                            </React.Fragment>
+                            }
+                        />
+                    </>):
+                    <>
+                        <img style={{width: '50%'}} src="uploads\hamster_logo.png" alt="space"/>
+                        <h1 style={{color:'palevioletred'}}>No more user available<span role="img" aria-label=":(">😥</span></h1>
+                    </>}
                 </Grid>
             </Paper>
         );
