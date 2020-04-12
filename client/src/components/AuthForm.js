@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Paper, withStyles, Grid, TextField, Button, Snackbar, IconButton, CircularProgress, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, FormHelperText} from '@material-ui/core';
+import { Paper, withStyles, Typography , Grid, TextField, Button, Snackbar, IconButton, CircularProgress, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, FormHelperText} from '@material-ui/core';
 import { Face, Fingerprint, MailOutline } from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
 import WcIcon from '@material-ui/icons/Wc';
 import { Link } from "react-router-dom";
+import DatePicker from 'react-date-picker';
+import CakeIcon from '@material-ui/icons/Cake';
 
 import { signIn, signUp, checkUsername } from '../actions/auth'
 
@@ -24,6 +26,7 @@ class AuthForm extends Component {
             usernameInput: "",
             passwordInput: "",
             confirmPWInput: "",
+            birthday: new Date(),
 
             emailErrAttr: false,
             emailShowErrText: false,
@@ -40,6 +43,10 @@ class AuthForm extends Component {
             confirmPwErrAttr: false,
             confirmPwShowErrText: false,
             confirmPwErrText: "",
+
+            birthdayErrAttr: false,
+            birthdayShowErrText: false,
+            birthdayErrText: "",
 
             checkboxErrAttr: false,
             checkboxShowErrText: false,
@@ -87,6 +94,12 @@ class AuthForm extends Component {
             genderRadio: e.target.value
         })
     };
+
+    changeDate = date => {
+        this.setState({
+            birthday: date
+        });
+    }
 
     handleSubmit = async e => {
         e.preventDefault();
@@ -413,6 +426,23 @@ class AuthForm extends Component {
                                                 onChange={e => this.handleChange(e)} 
                                                 value={this.state.input} 
                                                 name="confirmPWInput"/>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container spacing={2} alignItems="center" style={{marginTop: '15px'}}>
+                                            <Grid item>
+                                                <CakeIcon />
+                                            </Grid>
+                                            <Grid item xs>
+                                                <Typography style={{color: 'grey'}}>Date of birth *</Typography>
+                                                <DatePicker 
+                                                error={this.state.birthdayErrAttr?true:false}
+                                                helperText={this.state.birthdayShowErrText?this.state.birthdayErrText:false} 
+                                                id="birthday" 
+                                                type="birthday" 
+                                                fullWidth required  
+                                                onChange={this.changeDate} 
+                                                value={this.state.birthday} 
+                                                name="birthday"/>
                                             </Grid>
                                         </Grid>
                                         <Grid container alignItems="center" justify="space-between">
