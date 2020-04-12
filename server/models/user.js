@@ -13,7 +13,6 @@ const UserSchema = new Schema(
     image: {type: String, default: 'none'},
     number: String,
     description: String,
-    age: Number,
     location: String,
     likes: [ { type: String }],
     dislikes: [ { type: String }],

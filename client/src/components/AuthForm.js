@@ -162,6 +162,7 @@ class AuthForm extends Component {
             const arePasswordInputsValid = this.arePasswordInputsValid();
             const areCheckboxesChecked = this.areCheckboxesChecked();
             const isRadioButtonChecked = this.isRadioButtonChecked();
+            const isBirthdayValid = this.isBirthdayValid();
             this.setState({
                 loading: true
             });
@@ -170,9 +171,10 @@ class AuthForm extends Component {
                 arePasswordInputsValid && 
                 isUserInputValid && 
                 areCheckboxesChecked &&
-                isRadioButtonChecked ){
+                isRadioButtonChecked &&
+                isBirthdayValid ){
                 
-                response = await signUp(this.state.emailInput, this.state.usernameInput, this.state.passwordInput, this.state.genderRadio, this.state.selectedPreference );
+                response = await signUp(this.state.emailInput, this.state.usernameInput, this.state.passwordInput, this.state.birthday, this.state.genderRadio, this.state.selectedPreference );
                 if(response.success){
                     this.props.history.push("/home");
                 }
@@ -325,6 +327,21 @@ class AuthForm extends Component {
             })
             return false;
 
+        } else return true;
+    }
+
+    isBirthdayValid = () => {
+        this.setState({
+            birthdayErrAttr: false,
+            birthdayShowErrText: false,
+        })
+
+        if(this.state.birthday > new Date()) {
+            this.setState({
+                birthdayErrAttr: true,
+                birthdayShowErrText: true
+            })
+            return false;
         } else return true;
     }
 
