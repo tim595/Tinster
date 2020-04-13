@@ -8,34 +8,39 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 class ProfileCard extends Component {
     render() {
+        const { newUser } = this.props;
         return(
             this.props.showProfile && (
                 <Paper className="swipePaper">
                     <Grid container style={{margin: '10px', alignContent: 'flex-start'}} spacing={2}>
                         <Grid style={{height: 'fit-content', marginBottom: '1em'}} item xs={12}>
-                            <Avatar className="profileAvatar" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"/>
+                            <Avatar className="profileAvatar" src={newUser.image}/>
                             <Typography style={{textAlign: 'center', marginTop:'10px'}} variant="h3">
-                                <b>Freddy</b>, 14
+                                <b>{newUser.username}</b>, 14
                             </Typography>
                         </Grid>
                         <Grid item md={6} sm={12}>
                             <Typography variant="h6">
                                 <CakeIcon className="profileIcon"/>14 Month
                             </Typography>
+                            {newUser.location && (
                             <Typography variant="h6" style={{marginTop: '1em'}}>
-                                <HomeIcon className="profileIcon"/>1st St., Wakanda
+                                <HomeIcon className="profileIcon"/>{newUser.location}
                             </Typography>
+                            )}
                             <Typography variant="h6" style={{marginTop: '1em'}}>
-                                <FavoriteIcon className="profileIcon"/>Female
+                                <FavoriteIcon className="profileIcon"/>{newUser.gender}
                             </Typography>
                         </Grid>
-                        <Grid item md={6} sm={12}>
+                        {newUser.description && (<Grid item md={6} sm={12}>
                             <Typography variant="h6">
                                 <DescriptionIcon className="profileIcon"/><b>Description</b>
                             </Typography>
-                            <Typography style={{fontSize: '16px', textAlign: 'justify'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                            <Typography style={{fontSize: '16px', textAlign: 'justify'}}>
+                                {newUser.description.replace(/(\r\n|\n|\r)/gm, "")}
                             </Typography>
                         </Grid>
+                        )}
                     </Grid>
                 </Paper>
             )
