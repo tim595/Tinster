@@ -1,4 +1,4 @@
-# Setup a local development environment
+## Setup a local development environment
 Run ``` npm start ``` in ```./tinster```
 
 ## Run as Docker-Container
