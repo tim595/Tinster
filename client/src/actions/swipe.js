@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getNewUser = async (username, likesDislikes, preference) => {
-    const res = await axios.post('http://localhost:3001/api/swipe/getNewUser', {
+    const res = await axios.post('/api/swipe/getNewUser', {
         username: username,
         likesDislikes: likesDislikes,
         preference: preference 
