@@ -61,7 +61,7 @@ class SwipeCard extends Component {
                     {userAvailable?(
                     <> 
                         <Grid className="swipeContainer">
-                            <img src={newUser.image === 'none'?"https://source.unsplash.com/400x600/?hamster":newUser.image} alt="hamster_image"></img>
+                            <img src={newUser.image} alt="hamster_image"></img>
                         </Grid>
                         <Grid item style={{  width:'80%', marginTop:'5px'}}>
                             <p className="nameTag">{newUser.username + ", 14 Month"}</p>
