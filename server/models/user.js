@@ -9,7 +9,7 @@ const UserSchema = new Schema(
     gender: { type: String, required: true },
     preference: [ {type: String, required: true } ],
 
-    image: {type: String, default: 'none'},
+    image: {type: String, default: 'uploads/placeholder.png'},
     number: String,
     description: String,
     age: Number,
