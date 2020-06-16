@@ -1,23 +1,26 @@
-# Setup a development environment
+## Setup a local development environment
 Run ``` npm start ``` in ```./tinster```
 
-# MongoDB initial aufsetzen: 
+## Run as Docker-Container
 
-## Create docker container and start its bash
-```
-docker run -d --name tinster -p 27017:27017 mongo:latest
-(docker start tinster)
-docker exec -it tinster bash
-```
+1. Clone the project from Github
 
-## start mongo bash and create database + collection
-```
-mongo
-use tinster
-db.createCollection("users")
-```
+        git clone https://github.com/tim595/Tinster.git
 
-## insert an element
-```
-db.user.insertOne( {userName: "asdf", password: "asdf2", eMail: "test@web.de"} )
-```
+2. Navigate into the repository folder.
+
+        cd tinster/
+
+3. Build the docker images. This may take a while.
+
+        docker-compose build
+
+4. Start the docker images:
+
+        docker-compose up
+
+5. As soon as the images are up and running. The App is accessible under:
+    - For Docker Desktop:
+        [http://localhost:3000](http://localhost:3000)
+    - For Docker Toolbox:
+        [http://192.168.99.100:3000](http://192.168.99.100:3000)

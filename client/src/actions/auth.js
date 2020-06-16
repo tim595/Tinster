@@ -16,7 +16,7 @@ export const logout = () => {
 
 
 export const signIn = async (username, password) => {
-    const res = await axios.post('http://localhost:3001/api/auth/signIn', {
+    const res = await axios.post('/api/auth/signIn', {
       username: username,
       password: password,
     });
@@ -28,7 +28,7 @@ export const signIn = async (username, password) => {
   };
 
 export const signUp = async (email, username, password, gender, preference) => {
-    const res = await axios.post('http://localhost:3001/api/auth/signUp', {
+    const res = await axios.post('/api/auth/signUp', {
         email: email,
         username: username,
         password: password,
@@ -43,7 +43,7 @@ export const signUp = async (email, username, password, gender, preference) => {
 };
 
 export const checkUsername = async username => {
-  const res = await axios.post('http://localhost:3001/api/auth/checkUsername', {
+  const res = await axios.post('/api/auth/checkUsername', {
     username: username
   });
   return res.data;
@@ -53,6 +53,6 @@ export const checkToken = async () => {
   if (localStorage.jwtToken) {
     setAuhorizationToken(localStorage.jwtToken);
   }
-  const res = await axios.get('http://localhost:3001/api/auth/checkToken');
+  const res = await axios.get('/api/auth/checkToken');
   return res;
 }

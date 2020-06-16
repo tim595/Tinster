@@ -1,0 +1,16 @@
+version: '2'
+services:
+  server:
+    build: ./server/
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./server:/usr/src/app
+  client:
+    build: ./client/
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app
+    depends_on:
+      - server

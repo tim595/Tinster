@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const like = async ( userName, swipeID ) => {
-    const res = await axios.post('http://localhost:3001/api/button/like', {
+    const res = await axios.post('/api/button/like', {
         userName: userName,
         swipeID: swipeID
     });
@@ -9,7 +9,7 @@ export const like = async ( userName, swipeID ) => {
 }
 
 export const dislike = async ( userName, swipeID ) => {
-    const res = await axios.post('http://localhost:3001/api/button/dislike', {
+    const res = await axios.post('/api/button/dislike', {
         userName: userName,
         swipeID: swipeID
     });
