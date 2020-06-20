@@ -30,7 +30,7 @@ class Menubar extends Component {
                                 </Link>
                             </Box>
                             <Box display="flex" justifyContent="flex-end" style={{ width: '33.33%'}}>
-                                <Link style={{color: 'white'}} to="/profile" title="Matches!">
+                                <Link style={{color: 'white'}} to="/match" title="Matches!">
                                     <IconButton color="inherit" aria-label="matches" aria-controls="menu-appbar">
                                         <FavoriteIcon />
                                     </IconButton>
