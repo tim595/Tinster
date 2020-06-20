@@ -4,7 +4,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-
 import { Link } from "react-router-dom";
 import { logout } from '../actions/auth'; 
 
