@@ -34,6 +34,13 @@
   /* margin-top: -4vh; */
 }
 
+.match_text {
+  font-family: 'chaletmedium';
+  color: white;
+  font-size: 50px;
+  margin: -150px 0 50px 0;
+}
+
 .buttonProgress {
   /* color: white; */
   position: absolute;
@@ -58,6 +65,14 @@
   justify-content: center;
   box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.75) !important;
 }
+
+.matchArea{
+  display: flex;
+  height: 80vh;
+  width: 50vh;
+  justify-content: center;
+}
+
 .settingsPaper {
   position: relative;
   display: flex;
@@ -109,6 +124,12 @@
   width: 200px !important;
   height: 200px !important;
   margin: auto;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.matchAvatar {
+  width: 100px !important;
+  height: 100px !important;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
