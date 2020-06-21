@@ -44,7 +44,6 @@ class MatchPage extends Component {
                     <p className="match_text">No Matches Yet ☹</p>
                     : this.state.matchedUser.map((match, i) => <Match matchedUser={ match } key={i} />)}
                 </Grid>
-                {/* <Match matchedUser={ this.state.matchedUser } item/> */}
             </Grid>
             
         );
