@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Paper, withStyles, Grid, TextField, Button, Snackbar, IconButton, CircularProgress, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, FormHelperText} from '@material-ui/core';
+import { Paper, withStyles, Typography , Grid, TextField, Button, Snackbar, IconButton, CircularProgress, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, FormHelperText} from '@material-ui/core';
 import { Face, Fingerprint, MailOutline } from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
 import WcIcon from '@material-ui/icons/Wc';
 import { Link } from "react-router-dom";
+import DatePicker from 'react-date-picker';
+import CakeIcon from '@material-ui/icons/Cake';
 
 import { signIn, signUp, checkUsername } from '../actions/auth'
 
@@ -24,6 +26,7 @@ class AuthForm extends Component {
             usernameInput: "",
             passwordInput: "",
             confirmPWInput: "",
+            birthday: new Date(),
 
             emailErrAttr: false,
             emailShowErrText: false,
@@ -40,6 +43,10 @@ class AuthForm extends Component {
             confirmPwErrAttr: false,
             confirmPwShowErrText: false,
             confirmPwErrText: "",
+
+            birthdayErrAttr: false,
+            birthdayShowErrText: false,
+            birthdayErrText: "",
 
             checkboxErrAttr: false,
             checkboxShowErrText: false,
@@ -87,6 +94,13 @@ class AuthForm extends Component {
             genderRadio: e.target.value
         })
     };
+
+    changeDate = date => {
+        date.setHours(5);
+        this.setState({
+            birthday: date
+        });
+    }
 
     handleSubmit = async e => {
         e.preventDefault();
@@ -149,6 +163,7 @@ class AuthForm extends Component {
             const arePasswordInputsValid = this.arePasswordInputsValid();
             const areCheckboxesChecked = this.areCheckboxesChecked();
             const isRadioButtonChecked = this.isRadioButtonChecked();
+            const isBirthdayValid = this.isBirthdayValid();
             this.setState({
                 loading: true
             });
@@ -157,9 +172,10 @@ class AuthForm extends Component {
                 arePasswordInputsValid && 
                 isUserInputValid && 
                 areCheckboxesChecked &&
-                isRadioButtonChecked ){
+                isRadioButtonChecked &&
+                isBirthdayValid ){
                 
-                response = await signUp(this.state.emailInput, this.state.usernameInput, this.state.passwordInput, this.state.genderRadio, this.state.selectedPreference );
+                response = await signUp(this.state.emailInput, this.state.usernameInput, this.state.passwordInput, this.state.birthday, this.state.genderRadio, this.state.selectedPreference );
                 if(response.success){
                     this.props.history.push("/home");
                 }
@@ -315,6 +331,21 @@ class AuthForm extends Component {
         } else return true;
     }
 
+    isBirthdayValid = () => {
+        this.setState({
+            birthdayErrAttr: false,
+            birthdayShowErrText: false,
+        })
+
+        if(this.state.birthday > new Date()) {
+            this.setState({
+                birthdayErrAttr: true,
+                birthdayShowErrText: true
+            })
+            return false;
+        } else return true;
+    }
+
     render() {
         //TODO: Variablen eventuell außerhalb von render() deklarieren
         const { classes, signup } = this.props;
@@ -413,6 +444,23 @@ class AuthForm extends Component {
                                                 onChange={e => this.handleChange(e)} 
                                                 value={this.state.input} 
                                                 name="confirmPWInput"/>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container spacing={2} alignItems="center" style={{marginTop: '15px'}}>
+                                            <Grid item>
+                                                <CakeIcon />
+                                            </Grid>
+                                            <Grid item xs>
+                                                <Typography style={{color: 'grey'}}>Date of birth *</Typography>
+                                                <DatePicker 
+                                                error={this.state.birthdayErrAttr?true:false}
+                                                helperText={this.state.birthdayShowErrText?this.state.birthdayErrText:false} 
+                                                id="birthday" 
+                                                type="birthday" 
+                                                fullWidth required  
+                                                onChange={this.changeDate} 
+                                                value={this.state.birthday} 
+                                                name="birthday"/>
                                             </Grid>
                                         </Grid>
                                         <Grid container alignItems="center" justify="space-between">

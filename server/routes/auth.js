@@ -27,11 +27,12 @@ router.post('/signIn', (req, res) => {
 
 router.post('/signUp', (req, res) => {
     let newUser = new User();
-    let { username, password, email, gender, preference } = req.body;
+    let { username, password, birthday, email, gender, preference } = req.body;
     username = username.toLowerCase();
     
     newUser.username = username;
     newUser.password = password;
+    newUser.birthday = birthday;
     newUser.email = email;
     newUser.gender = gender;
     newUser.preference = preference;
