@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, IconButton, Box } from '@material-ui/core'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Link } from "react-router-dom";
 import { logout } from '../actions/auth'; 
 
@@ -29,6 +30,11 @@ class Menubar extends Component {
                                 </Link>
                             </Box>
                             <Box display="flex" justifyContent="flex-end" style={{ width: '33.33%'}}>
+                                <Link style={{color: 'white'}} to="/match" title="Matches!">
+                                    <IconButton color="inherit" aria-label="matches" aria-controls="menu-appbar">
+                                        <FavoriteIcon />
+                                    </IconButton>
+                                </Link>
                                 <Link style={{color: 'white'}} to="/profile" title="Profile">
                                     <IconButton color="inherit" aria-label="account of current user" aria-controls="menu-appbar">
                                         <AccountCircle />

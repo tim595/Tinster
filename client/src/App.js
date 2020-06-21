@@ -5,6 +5,7 @@ import AuthForm from './components/AuthForm';
 import Home from './components/Home'
 import Settings from './components/Settings'
 import ProfilePage from './components/ProfilePage'
+import MatchPage from './components/MatchPage'
 import withAuth from "./components/withAuth";
 import { Container } from '@material-ui/core';
 import { Route, Switch, BrowserRouter } from "react-router-dom";
@@ -26,6 +27,7 @@ function App() {
             <Route path="/home" component={withAuth(Home)} />
             <Route path="/settings" component={withAuth(Settings)} />
             <Route path="/profile" component={withAuth(ProfilePage)} />
+            <Route path="/match" component={withAuth(MatchPage)} />
           </Switch>
         </BrowserRouter>
      </Container>

@@ -8,6 +8,7 @@ const btnFunctions = require('./routes/button');
 const { loginRequired } = require("./middleware/auth");
 const changeSettings = require('./routes/changeSettings');
 const swipe = require('./routes/swipe');
+const match  = require('./routes/match');
 
 
 
@@ -29,5 +30,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/button', loginRequired, btnFunctions);
 app.use('/api/changeSettings', loginRequired, changeSettings);
 app.use('/api/swipe', loginRequired, swipe);
+app.use('/api/match', loginRequired, match);
 
 app.listen(API_PORT, () => console.log(`Server läuft auf http://localhost:${API_PORT}`));
