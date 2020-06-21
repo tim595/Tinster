@@ -235,6 +235,10 @@ class Settings extends Component {
             fetchingData: false
         })
         if(response.success) {
+            let date = new Date(response.res.birthday);
+            date = date.setHours(0,0,0,0);
+            date = new Date().setHours(0,0,0,0) - date;
+            console.log(new Date(date));
             this.setState({
                 emailInput: response.res.email,
                 numberInput: response.res.number,
