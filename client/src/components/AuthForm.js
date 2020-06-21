@@ -96,6 +96,7 @@ class AuthForm extends Component {
     };
 
     changeDate = date => {
+        date.setHours(5);
         this.setState({
             birthday: date
         });

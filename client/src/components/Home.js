@@ -55,6 +55,7 @@ class Home extends Component {
                     userAvailable: false
                 })
             } else {
+                newUser.age = this.calcAge(newUser.birthday);
                 this.setState({
                     newUser: newUser,
                     userAvailable: true
@@ -90,6 +91,14 @@ class Home extends Component {
         this.setState({
             dislikes: dislikes
         })
+    }
+
+    calcAge = (birthday) => {
+        let date = new Date(birthday);
+        let milliMonth = 1000 * 60 * 60 * 24 * 30.42;
+        let ageInMonth = (new Date() - date) / milliMonth;
+        
+        return Math.floor(ageInMonth);
     }
 
     componentDidMount = () => {

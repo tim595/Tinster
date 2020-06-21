@@ -16,12 +16,12 @@ class ProfileCard extends Component {
                         <Grid style={{height: 'fit-content', marginBottom: '1em'}} item xs={12}>
                             <Avatar className="profileAvatar" src={newUser.image}/>
                             <Typography style={{textAlign: 'center', marginTop:'10px'}} variant="h3">
-                                <b>{newUser.username}</b>, 14
+                                <b>{newUser.username}</b>, {newUser.age}
                             </Typography>
                         </Grid>
                         <Grid item md={6} sm={12}>
                             <Typography variant="h6">
-                                <CakeIcon className="profileIcon"/>14 Month
+                                <CakeIcon className="profileIcon"/>{new Date(new Date(newUser.birthday).setHours(0, 0, 0)).toLocaleDateString()}
                             </Typography>
                             {newUser.location && (
                             <Typography variant="h6" style={{marginTop: '1em'}}>

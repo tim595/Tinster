@@ -64,7 +64,7 @@ class SwipeCard extends Component {
                             <img src={newUser.image} alt="hamster_image"></img>
                         </Grid>
                         <Grid item style={{  width:'80%', marginTop:'5px'}}>
-                            <p className="nameTag">{newUser.username + ", 14 Month"}</p>
+                            <p className="nameTag">{newUser.username + ", " + newUser.age + " Month(s)"}</p>
                         </Grid>
                         <Grid item className="swipeButtons">
                                 <CheckCircleIcon className="cardIcons" style={{color:'lightgreen'}} onClick={this.addLike} />
