@@ -446,21 +446,25 @@ class AuthForm extends Component {
                                                 name="confirmPWInput"/>
                                             </Grid>
                                         </Grid>
-                                        <Grid container spacing={2} alignItems="center" style={{marginTop: '15px'}}>
-                                            <Grid item>
-                                                <CakeIcon />
-                                            </Grid>
-                                            <Grid item xs>
-                                                <Typography style={{color: 'grey'}}>Date of birth *</Typography>
-                                                <DatePicker 
-                                                error={this.state.birthdayErrAttr?true:false}
-                                                helperText={this.state.birthdayShowErrText?this.state.birthdayErrText:false} 
-                                                id="birthday" 
-                                                type="birthday" 
-                                                fullWidth required  
-                                                onChange={this.changeDate} 
-                                                value={this.state.birthday} 
-                                                name="birthday"/>
+                                        <Grid container spacing={2} alignItems="center" style={{marginTop: '20px'}}>
+                                            <Grid item container style={{ width:'95%' }}  alignItems="center" justify="space-between">
+                                                <Grid item>
+                                                    <CakeIcon />
+                                                </Grid>
+                                                <Grid item >
+                                                    <Typography style={{color: 'grey'}}>Date of birth *</Typography>
+                                                    <DatePicker 
+                                                    error={this.state.birthdayErrAttr?true:false}
+                                                    id="birthday" 
+                                                    type="birthday" 
+                                                    fullWidth required  
+                                                    onChange={this.changeDate} 
+                                                    value={this.state.birthday} 
+                                                    name="birthday"/>
+                                                </Grid>
+                                                <Grid item style={{ width:'50%' }}>
+                                                  <Typography style={{display:this.state.birthdayShowErrText?'block':'none', color: 'red', fontSize: '0.75rem'}}>Birthdate can't be in the future</Typography>
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid container alignItems="center" justify="space-between">
