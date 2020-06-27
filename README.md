@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="https://puu.sh/G14hY/9fbc1178dc.png" />
+</p>
 ## Setup a local development environment
 1. Clone the project from Github
 
