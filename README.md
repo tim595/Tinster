@@ -16,7 +16,7 @@
 
 ## Run as Docker-Container
 
-1. Clone Docker Branch from the project from Github
+1. Clone the 'docker' branch from Github
 
         git clone --single-branch --branch docker https://github.com/tim595/Tinster.git
 
