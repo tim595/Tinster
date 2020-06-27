@@ -360,7 +360,7 @@ class AuthForm extends Component {
                 style={{ minHeight: '80vh' }}
             >
                 <Grid item align="center">
-                    <img alt="hamster_logo" className="hamster_logo" src="https://cdn2.iconfinder.com/data/icons/animals-nature-2/50/1F439-hamster-512.png"/>
+                    <img alt="hamster_logo" className="hamster_logo" src="./uploads/hamster_logo.png"/>
                 </Grid>
                 <Grid item align="center">
                     <p className="logo_text">tinster</p>
