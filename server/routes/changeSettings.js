@@ -32,7 +32,7 @@ const upload = multer({
 
 router.post('/receiveData', (req, res) => {
     const { userName } = req.body;
-    User.findOne({username: userName}, (err, result) => {
+    User.findOne({username: userName.toLowerCase()}, (err, result) => {
         if(err || result === null) {
             return res.json({ success: false, error: err });
         }
